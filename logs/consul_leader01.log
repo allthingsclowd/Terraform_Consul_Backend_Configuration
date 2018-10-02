@@ -1,0 +1,42 @@
+==> Starting Consul agent...
+==> Consul agent running!
+           Version: 'v1.2.3'
+           Node ID: 'cf633aef-0d6c-17b4-9017-7313690a1880'
+         Node name: 'leader01'
+        Datacenter: 'dc1' (Segment: '<all>')
+            Server: true (Bootstrap: true)
+       Client Addr: [0.0.0.0] (HTTP: 8500, HTTPS: -1, DNS: 8600)
+      Cluster Addr: 192.168.2.11 (LAN: 8301, WAN: 8302)
+           Encrypt: Gossip: false, TLS-Outgoing: false, TLS-Incoming: false
+
+==> Log data will now stream in as it occurs:
+
+    2018/10/02 15:44:19 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:cf633aef-0d6c-17b4-9017-7313690a1880 Address:192.168.2.11:8300}]
+    2018/10/02 15:44:19 [INFO] serf: EventMemberJoin: leader01.dc1 192.168.2.11
+    2018/10/02 15:44:19 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/02 15:44:19 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+    2018/10/02 15:44:19 [INFO] raft: Node at 192.168.2.11:8300 [Follower] entering Follower state (Leader: "")
+    2018/10/02 15:44:19 [INFO] consul: Adding LAN server leader01 (Addr: tcp/192.168.2.11:8300) (DC: dc1)
+    2018/10/02 15:44:19 [INFO] consul: Handled member-join event for server "leader01.dc1" in area "wan"
+    2018/10/02 15:44:19 [WARN] agent/proxy: running as root, will not start managed proxies
+    2018/10/02 15:44:19 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+    2018/10/02 15:44:19 [INFO] agent: Started HTTP server on [::]:8500 (tcp)
+    2018/10/02 15:44:19 [INFO] agent: started state syncer
+    2018/10/02 15:44:26 [ERR] agent: failed to sync remote state: No cluster leader
+    2018/10/02 15:44:27 [WARN] raft: Heartbeat timeout from "" reached, starting election
+    2018/10/02 15:44:27 [INFO] raft: Node at 192.168.2.11:8300 [Candidate] entering Candidate state in term 2
+    2018/10/02 15:44:27 [INFO] raft: Election won. Tally: 1
+    2018/10/02 15:44:27 [INFO] raft: Node at 192.168.2.11:8300 [Leader] entering Leader state
+    2018/10/02 15:44:27 [INFO] consul: cluster leadership acquired
+    2018/10/02 15:44:27 [INFO] consul: New leader elected: leader01
+    2018/10/02 15:44:27 [INFO] connect: initialized CA with provider "consul"
+    2018/10/02 15:44:27 [INFO] consul: member 'leader01' joined, marking health alive
+    2018/10/02 15:44:29 [INFO] agent: Synced node info
+    2018/10/02 18:24:30 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52186
+    2018/10/02 18:25:21 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52188
+    2018/10/02 18:27:23 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52190
+    2018/10/02 18:27:54 [ERR] memberlist: Received invalid msgType (80) from=192.168.2.11:52192
+    2018/10/02 18:28:38 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52194
+    2018/10/02 18:33:26 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52196
+    2018/10/02 18:34:09 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52198
+    2018/10/02 18:53:09 [ERR] memberlist: Received invalid msgType (71) from=192.168.2.11:52200

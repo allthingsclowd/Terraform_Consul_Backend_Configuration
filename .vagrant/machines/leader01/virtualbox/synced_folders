@@ -1,0 +1,1 @@
+{"virtualbox":{"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/grazzer/vagrant_workspace/consul_terraform_example","disabled":false,"__vagrantfile":true},"/usr/local/bootstrap":{"guestpath":"/usr/local/bootstrap","hostpath":"/Users/grazzer/vagrant_workspace/consul_terraform_example","disabled":false,"__vagrantfile":true}}}
