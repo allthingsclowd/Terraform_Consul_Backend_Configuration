@@ -1,0 +1,7 @@
+.terraform
+.vagrant
+*.pfx
+*.pem
+*.csr
+certificate-config/*
+log/*
