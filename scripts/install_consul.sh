@@ -46,6 +46,9 @@ if [ "${TRAVIS}" == "true" ]; then
 IP=${IP:-127.0.0.1}
 fi
 
+#lets kill past instance
+sudo killall -1 consul &>/dev/null
+
 # check consul binary
 [ -f /usr/local/bin/consul ] &>/dev/null || {
     pushd /usr/local/bin
@@ -70,9 +73,6 @@ fi
 
 AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
 sudo mkdir -p /etc/consul.d
-
-
-
 
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then

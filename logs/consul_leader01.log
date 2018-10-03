@@ -34,3 +34,7 @@
     2018/10/03 15:34:17 [INFO] agent: Synced node info
     2018/10/03 15:35:05 [INFO] serf: EventMemberJoin: follower01 192.168.2.10
     2018/10/03 15:35:05 [INFO] consul: member 'follower01' joined, marking health alive
+    2018/10/03 17:47:59 [INFO] serf: EventMemberLeave: follower01 192.168.2.10
+    2018/10/03 17:47:59 [INFO] consul: member 'follower01' left, deregistering
+    2018/10/03 17:50:36 [INFO] serf: EventMemberJoin: follower01 192.168.2.10
+    2018/10/03 17:50:36 [INFO] consul: member 'follower01' joined, marking health alive

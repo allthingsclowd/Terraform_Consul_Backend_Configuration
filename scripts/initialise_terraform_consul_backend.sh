@@ -27,17 +27,24 @@ configure_terraform_consul_backend () {
 
     # admin policy hcl definition file
     tee backend.tf <<EOF
+    
 terraform {
-  backend "consul" {
-    address = "localhost"
-    scheme  = "http"
-    path    = "banana/pie"
-  }
+        backend "consul" {
+            address = "localhost:8321"
+            scheme  = "https"
+            path    = "apples/twenty"
+            ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
+            datacenter = "allthingscloud1"
+        }
 }
 EOF
 
+    grep -q -F 'backend "consul"' main.tf || cat backend.tf >> main.tf
+
+    rm backend.tf
+
     # initialise the consul backend
-    TF_LOG=DEBUG terraform init -backend-config='/vagrant/backend.tf'
+    TF_LOG=DEBUG terraform init >${LOG} &
 
     echo 'Finished Terraform Consul Backend Config'   
 }
