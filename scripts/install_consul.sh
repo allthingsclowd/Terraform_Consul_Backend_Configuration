@@ -1,6 +1,34 @@
 #!/usr/bin/env bash
 set -x
 
+generate_certificate_config () {
+
+  sudo mkdir -p /etc/pki/tls/private
+  sudo mkdir -p /etc/pki/tls/certs
+  sudo cp -r /usr/local/bootstrap/certificate-config/${5}-key.pem /etc/pki/tls/private/${5}-key.pem
+  sudo cp -r /usr/local/bootstrap/certificate-config/${5}.pem /etc/pki/tls/certs/${5}.pem
+  sudo cp -r /usr/local/bootstrap/certificate-config/consul-ca.pem /etc/pki/tls/certs/consul-ca.pem
+    tee /etc/consul.d/consul_cert_setup.json <<EOF
+    {
+    "datacenter": "allthingscloud1",
+    "data_dir": "/usr/local/consul",
+    "log_level": "INFO",
+    "node_name": "${HOSTNAME}",
+    "server": ${1},
+    "addresses": {
+        "https": "0.0.0.0"
+    },
+    "ports": {
+        "https": 8321,
+        "http": -1
+    },
+    "key_file": "$2",
+    "cert_file": "$3",
+    "ca_file": "$4"
+    }
+EOF
+}
+
 source /usr/local/bootstrap/var.env
 
 IFACE=`route -n | awk '$1 == "192.168.2.0" {print $8;exit}'`
@@ -40,13 +68,16 @@ fi
     popd
 }
 
-
 AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
 sudo mkdir -p /etc/consul.d
+
+
+
+
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   echo server
-
+  generate_certificate_config true "/etc/pki/tls/private/server-key.pem" "/etc/pki/tls/certs/server.pem" "/etc/pki/tls/certs/consul-ca.pem" server
   if [ "${TRAVIS}" == "true" ]; then
     sudo mkdir -p /etc/consul.d
     COUNTER=0
@@ -69,8 +100,12 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
       sudo /usr/local/bin/consul agent -server -ui -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
     
     sleep 5
-    # upload vars to consul kv
 
+    export CONSUL_HTTP_ADDR=https://localhost:8321
+    export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
+    export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
+    export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    # upload vars to consul kv
     while read a b; do
       k=${b%%=*}
       v=${b##*=}
@@ -81,6 +116,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   }
 else
   echo agent
+  generate_certificate_config false "/etc/pki/tls/private/client-key.pem" "/etc/pki/tls/certs/client.pem" "/etc/pki/tls/certs/consul-ca.pem" client
   /usr/local/bin/consul members 2>/dev/null || {
     /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
     sleep 10
