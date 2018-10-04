@@ -1,7 +1,7 @@
 ==> Starting Consul agent...
 ==> Consul agent running!
            Version: 'v1.2.3'
-           Node ID: '246807cd-06c3-6573-12f1-920f8a4bdeeb'
+           Node ID: '82157421-ceca-acdd-cf66-f0c6b16e89d1'
          Node name: 'leader01'
         Datacenter: 'allthingscloud1' (Segment: '<all>')
             Server: true (Bootstrap: true)
@@ -11,31 +11,31 @@
 
 ==> Log data will now stream in as it occurs:
 
-    2018/10/04 13:58:56 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:246807cd-06c3-6573-12f1-920f8a4bdeeb Address:192.168.2.11:8300}]
-    2018/10/04 13:58:56 [INFO] serf: EventMemberJoin: leader01.allthingscloud1 192.168.2.11
-    2018/10/04 13:58:56 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
-    2018/10/04 13:58:56 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
-    2018/10/04 13:58:56 [INFO] raft: Node at 192.168.2.11:8300 [Follower] entering Follower state (Leader: "")
-    2018/10/04 13:58:56 [INFO] consul: Adding LAN server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
-    2018/10/04 13:58:56 [INFO] consul: Handled member-join event for server "leader01.allthingscloud1" in area "wan"
-    2018/10/04 13:58:56 [WARN] agent/proxy: running as root, will not start managed proxies
-    2018/10/04 13:58:56 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
-    2018/10/04 13:58:56 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
-    2018/10/04 13:58:56 [INFO] agent: started state syncer
-    2018/10/04 13:59:03 [ERR] agent: failed to sync remote state: No cluster leader
-    2018/10/04 13:59:05 [WARN] raft: Heartbeat timeout from "" reached, starting election
-    2018/10/04 13:59:05 [INFO] raft: Node at 192.168.2.11:8300 [Candidate] entering Candidate state in term 2
-    2018/10/04 13:59:05 [INFO] raft: Election won. Tally: 1
-    2018/10/04 13:59:05 [INFO] raft: Node at 192.168.2.11:8300 [Leader] entering Leader state
-    2018/10/04 13:59:05 [INFO] consul: cluster leadership acquired
-    2018/10/04 13:59:05 [INFO] consul: New leader elected: leader01
-    2018/10/04 13:59:05 [INFO] consul: Created ACL master token from configuration
-    2018/10/04 13:59:05 [INFO] consul: ACL bootstrap disabled, existing management tokens found
-    2018/10/04 13:59:05 [INFO] connect: initialized CA with provider "consul"
-    2018/10/04 13:59:05 [INFO] consul: member 'leader01' joined, marking health alive
-    2018/10/04 13:59:06 [INFO] agent: Updated agent's ACL token "acl_agent_token"
-    2018/10/04 13:59:06 [INFO] agent: Caught signal:  hangup
-    2018/10/04 13:59:06 [INFO] agent: Reloading configuration...
-    2018/10/04 13:59:07 [INFO] agent: Synced node info
-    2018/10/04 13:59:53 [INFO] serf: EventMemberJoin: follower01 192.168.2.10
-    2018/10/04 13:59:53 [INFO] consul: member 'follower01' joined, marking health alive
+    2018/10/04 21:17:15 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:82157421-ceca-acdd-cf66-f0c6b16e89d1 Address:192.168.2.11:8300}]
+    2018/10/04 21:17:15 [INFO] serf: EventMemberJoin: leader01.allthingscloud1 192.168.2.11
+    2018/10/04 21:17:15 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:17:15 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+    2018/10/04 21:17:15 [INFO] raft: Node at 192.168.2.11:8300 [Follower] entering Follower state (Leader: "")
+    2018/10/04 21:17:15 [INFO] consul: Adding LAN server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:17:15 [INFO] consul: Handled member-join event for server "leader01.allthingscloud1" in area "wan"
+    2018/10/04 21:17:15 [WARN] agent/proxy: running as root, will not start managed proxies
+    2018/10/04 21:17:15 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+    2018/10/04 21:17:15 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
+    2018/10/04 21:17:15 [INFO] agent: started state syncer
+    2018/10/04 21:17:22 [ERR] agent: failed to sync remote state: No cluster leader
+    2018/10/04 21:17:22 [WARN] raft: Heartbeat timeout from "" reached, starting election
+    2018/10/04 21:17:22 [INFO] raft: Node at 192.168.2.11:8300 [Candidate] entering Candidate state in term 2
+    2018/10/04 21:17:22 [INFO] raft: Election won. Tally: 1
+    2018/10/04 21:17:22 [INFO] raft: Node at 192.168.2.11:8300 [Leader] entering Leader state
+    2018/10/04 21:17:22 [INFO] consul: cluster leadership acquired
+    2018/10/04 21:17:22 [INFO] consul: New leader elected: leader01
+    2018/10/04 21:17:22 [INFO] consul: Created ACL master token from configuration
+    2018/10/04 21:17:22 [INFO] consul: ACL bootstrap disabled, existing management tokens found
+    2018/10/04 21:17:22 [INFO] connect: initialized CA with provider "consul"
+    2018/10/04 21:17:22 [INFO] consul: member 'leader01' joined, marking health alive
+    2018/10/04 21:17:23 [INFO] agent: Updated agent's ACL token "acl_agent_token"
+    2018/10/04 21:17:23 [INFO] agent: Caught signal:  hangup
+    2018/10/04 21:17:23 [INFO] agent: Reloading configuration...
+    2018/10/04 21:17:24 [INFO] agent: Synced node info
+    2018/10/04 21:18:15 [INFO] serf: EventMemberJoin: follower01 192.168.2.110
+    2018/10/04 21:18:15 [INFO] consul: member 'follower01' joined, marking health alive

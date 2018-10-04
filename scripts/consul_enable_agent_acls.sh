@@ -8,10 +8,39 @@ enable_consul_agent_acl () {
   if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
     echo server mode
     create_agent_token
+    enable_acl_for_agents
+    enable_anonymous_token
+    create_kv_app_token "dev-app1" "dev-state" "follower01"
+    create_kv_app_token "prod-app1" "prod-state" "follower01"
+  else
+    enable_acl_for_agents
+    create_session_app_token "dev-app-1" ${HOSTNAME}
+    create_session_app_token "prod-app-1" ${HOSTNAME}
+
   fi
-  enable_acl_for_agents
 
   echo consul started
+
+}
+
+create_session_app_token () {
+
+  APPSESSION=$(curl -k \
+    --request PUT \
+    --header "X-Consul-Token: b1gs33cr3t" \
+    --data \
+    "{
+      \"LockDelay\": \"15s\",
+      \"Name\": \"${1}-lock\",
+      \"Node\": \"${2}\",
+      \"Checks\": [\"serfHealth\"],
+      \"Behavior\": \"release\",
+      \"TTL\": \"30s\"
+    }" https://127.0.0.1:8321/v1/session/create | jq -r .ID)
+
+  echo "The SESSION token for ${1} is => ${APPSESSION}"
+  echo -n ${APPSESSION} > /usr/local/bootstrap/.${1}-lock
+  sudo chmod ugo+r /usr/local/bootstrap/.${1}-lock
 
 }
 
@@ -59,4 +88,36 @@ enable_acl_for_agents () {
   
 }
 
+enable_anonymous_token () {
+  curl -k \
+    --request PUT \
+    --header "X-Consul-Token: b1gs33cr3t" \
+    --data \
+  '{
+    "ID": "anonymous",
+    "Type": "client",
+    "Rules": "node \"\" { policy = \"read\" } service \"consul\" { policy = \"read\" } key \"_rexec\" { policy = \"write\" }
+  }' https://127.0.0.1:8321/v1/acl/update
+}
+
+create_kv_app_token () {
+
+  APPTOKEN=$(curl -k \
+    --request PUT \
+    --header "X-Consul-Token: b1gs33cr3t" \
+    --data \
+    "{
+      \"Name\": \"${1}\",
+      \"Type\": \"client\",
+      \"Rules\": \"key \\\"${2}\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+    }" https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
+
+  echo "The ACL token for ${1} is => ${APPTOKEN}"
+  echo -n ${APPTOKEN} > /usr/local/bootstrap/.${1}_acl
+  sudo chmod ugo+r /usr/local/bootstrap/.${1}_acl
+  
+} 
+
 enable_consul_agent_acl
+
+

@@ -3,37 +3,41 @@
     Join completed. Synced with 1 initial agents
 ==> Consul agent running!
            Version: 'v1.2.3'
-           Node ID: 'ba7d7f1c-a285-c855-09fd-0cc52e757474'
+           Node ID: 'eb1f739b-60db-8928-dc1f-8ed9918afdfd'
          Node name: 'follower01'
         Datacenter: 'allthingscloud1' (Segment: '')
             Server: false (Bootstrap: false)
        Client Addr: [0.0.0.0] (HTTP: -1, HTTPS: 8321, DNS: 8600)
-      Cluster Addr: 192.168.2.10 (LAN: 8301, WAN: 8302)
+      Cluster Addr: 192.168.2.110 (LAN: 8301, WAN: 8302)
            Encrypt: Gossip: false, TLS-Outgoing: false, TLS-Incoming: false
 
 ==> Log data will now stream in as it occurs:
 
-    2018/10/04 13:59:53 [INFO] serf: EventMemberJoin: follower01 192.168.2.10
-    2018/10/04 13:59:53 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
-    2018/10/04 13:59:53 [WARN] agent/proxy: running as root, will not start managed proxies
-    2018/10/04 13:59:53 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
-    2018/10/04 13:59:53 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
-    2018/10/04 13:59:53 [INFO] agent: (LAN) joining: [192.168.2.11]
-    2018/10/04 13:59:53 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
-    2018/10/04 13:59:53 [INFO] agent: (LAN) joined: 1 Err: <nil>
-    2018/10/04 13:59:53 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
-    2018/10/04 13:59:53 [INFO] agent: started state syncer
-    2018/10/04 13:59:53 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 13:59:53 [WARN] agent: Node info update blocked by ACLs
-    2018/10/04 13:59:55 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 13:59:55 [WARN] agent: Node info update blocked by ACLs
-    2018/10/04 14:00:03 [INFO] agent: Updated agent's ACL token "acl_agent_token"
-    2018/10/04 14:00:03 [INFO] agent: Caught signal:  hangup
-    2018/10/04 14:00:03 [INFO] agent: Reloading configuration...
-    2018/10/04 14:00:04 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 14:00:04 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: Permission denied from=[::1]:35178
-    2018/10/04 14:00:04 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 14:00:04 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: Permission denied from=[::1]:35182
-    2018/10/04 14:00:04 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 14:00:04 [ERR] http: Request GET /v1/kv/dev/app1, error: rpc error making call: Permission denied from=[::1]:35186
-    2018/10/04 14:01:51 [INFO] agent: Synced node info
+    2018/10/04 21:18:15 [INFO] serf: EventMemberJoin: follower01 192.168.2.110
+    2018/10/04 21:18:15 [WARN] agent/proxy: running as root, will not start managed proxies
+    2018/10/04 21:18:15 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+    2018/10/04 21:18:15 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+    2018/10/04 21:18:15 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
+    2018/10/04 21:18:15 [INFO] agent: (LAN) joining: [192.168.2.11]
+    2018/10/04 21:18:15 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:18:15 [INFO] agent: (LAN) joined: 1 Err: <nil>
+    2018/10/04 21:18:15 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:18:15 [INFO] agent: started state syncer
+    2018/10/04 21:18:15 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 21:18:15 [WARN] agent: Node info update blocked by ACLs
+    2018/10/04 21:18:16 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 21:18:16 [WARN] agent: Node info update blocked by ACLs
+    2018/10/04 21:18:25 [INFO] agent: Updated agent's ACL token "acl_agent_token"
+    2018/10/04 21:18:25 [INFO] agent: Caught signal:  hangup
+    2018/10/04 21:18:25 [INFO] agent: Reloading configuration...
+    2018/10/04 21:18:26 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:18:26 [ERR] http: Request GET /v1/kv/dev/app1/?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52084
+    2018/10/04 21:18:26 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:18:26 [ERR] http: Request GET /v1/kv/dev/app1/?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52086
+    2018/10/04 21:18:26 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:18:26 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52088
+    2018/10/04 21:18:26 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:18:26 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52090
+    2018/10/04 21:18:26 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 21:18:26 [ERR] http: Request GET /v1/kv/dev/app1, error: rpc error making call: Permission denied from=[::1]:52092
+    2018/10/04 21:20:08 [INFO] agent: Synced node info

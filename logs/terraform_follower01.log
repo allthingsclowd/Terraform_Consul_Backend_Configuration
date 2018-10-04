@@ -1,4 +1,8 @@
-[0m[1mTerraform initialized in an empty directory![0m
 
-The directory has no Terraform configuration files. You may begin working
-with Terraform immediately by creating Terraform configuration files.[0m
+[0m[1mInitializing the backend...[0m
+[0m[32m
+Successfully configured the backend "consul"! Terraform will automatically
+use this backend unless the backend configuration changes.[0m
+
+[0m[1mInitializing provider plugins...[0m
+- Checking for available provider plugins on https://releases.hashicorp.com...

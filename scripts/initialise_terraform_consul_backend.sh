@@ -25,31 +25,46 @@ configure_terraform_consul_backend () {
 
     echo 'Start Terraform Consul Backend Config'
 
+    sudo rm /usr/local/bootstrap/main.tf
+    sudo rm -rf /usr/local/bootstrap/.terraform
+
+    CONSUL_ACCESS_TOKEN=`cat /usr/local/bootstrap/.dev-app-1_acl`
+
     # admin policy hcl definition file
-    tee backend.tf <<EOF
-    
+    tee /usr/local/bootstrap/main.tf <<EOF
+resource "null_resource" "helloWorld2" {
+  provisioner "local-exec" {
+    command = "echo hello world2"
+  }
+} 
+
 terraform {
         backend "consul" {
             address = "localhost:8321"
+            access_token = "${CONSUL_ACCESS_TOKEN}"
             scheme  = "https"
-            path    = "dev/app1"
+            path    = "dev/app1/"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
             datacenter = "allthingscloud1"
         }
 }
 EOF
 
-    grep -q -F 'backend "consul"' /usr/local/bootstrap/main.tf || cat backend.tf >> /usr/local/bootstrap/main.tf
 
-    rm backend.tf
-
+    pushd /usr/local/bootstrap
+    cat main.tf
+    pwd
+    ls
     # initialise the consul backend
-    TF_LOG=DEBUG terraform init >${LOG} &
+    TF_LOG=DEBUG terraform init
+    if [[ ${?} > 0 ]]; then 
+        TF_LOG=DEBUG terraform init
+    fi
 
     echo 'Terraform startup logs =>'
     cat /usr/local/bootstrap/logs/terraform_follower01.log
 
-    pushd /usr/local/bootstrap
+    
     terraform plan
     terraform apply --auto-approve
     popd
