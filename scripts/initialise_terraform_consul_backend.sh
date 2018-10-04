@@ -32,19 +32,36 @@ terraform {
         backend "consul" {
             address = "localhost:8321"
             scheme  = "https"
-            path    = "apples/twenty"
+            path    = "dev/app1"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
             datacenter = "allthingscloud1"
         }
 }
 EOF
 
-    grep -q -F 'backend "consul"' main.tf || cat backend.tf >> main.tf
+    grep -q -F 'backend "consul"' /usr/local/bootstrap/main.tf || cat backend.tf >> /usr/local/bootstrap/main.tf
 
     rm backend.tf
 
     # initialise the consul backend
     TF_LOG=DEBUG terraform init >${LOG} &
+
+    echo 'Terraform startup logs =>'
+    cat /usr/local/bootstrap/logs/terraform_follower01.log
+
+    pushd /usr/local/bootstrap
+    terraform plan
+    terraform apply --auto-approve
+    popd
+
+    echo 'Terraform state file in Consul backend =>'
+    # Setup SSL settings
+    export CONSUL_HTTP_ADDR=https://localhost:8321
+    export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
+    export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
+    export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    # Read Consul
+    consul kv get "dev/app1"
 
     echo 'Finished Terraform Consul Backend Config'   
 }

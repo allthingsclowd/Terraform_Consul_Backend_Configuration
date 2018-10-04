@@ -4,12 +4,13 @@ resource "null_resource" "helloWorld2" {
   }
 } 
 
+
     
 terraform {
         backend "consul" {
             address = "localhost:8321"
             scheme  = "https"
-            path    = "apples/twenty"
+            path    = "dev/app1"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
             datacenter = "allthingscloud1"
         }
