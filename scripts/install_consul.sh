@@ -1,6 +1,43 @@
 #!/usr/bin/env bash
 set -x
 
+enable_acl_for_agents () {
+  AGENTACL=`curl -k \
+        --request PUT \
+        --header "X-Consul-Token: b1gs33cr3t" \
+        --data \
+    '{
+      "Name": "Agent Token",
+      "Type": "client",
+      "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+    }' https://127.0.0.1:8321/v1/acl/create | jq -r .ID`
+
+  echo "The agent ACL received => ${AGENTACL}"
+}
+
+enable_acls_on_server () {
+
+  tee /etc/consul.d/consul_acl_setup.json <<EOF
+  {
+    "acl_datacenter": "allthingscloud1",
+    "acl_master_token": "b1gs33cr3t",
+    "acl_default_policy": "deny",
+    "acl_down_policy": "extend-cache"
+  }
+EOF
+
+    # lets kill past instance to force reload of new config
+    # sudo killall -1 consul
+
+    # Need to review this, was unable to bootstrap via API kept getting "ACL support disabled"
+    # curl -k \
+    # --request PUT \
+    # https://127.0.0.1:8321/v1/acl/bootstrap
+
+    # echo "Master ACL Token => ${MASTERACLTOKEN}"
+
+}
+
 generate_certificate_config () {
 
   sudo mkdir -p /etc/pki/tls/private
@@ -29,7 +66,9 @@ generate_certificate_config () {
 EOF
 }
 
+
 source /usr/local/bootstrap/var.env
+
 
 IFACE=`route -n | awk '$1 == "192.168.2.0" {print $8;exit}'`
 CIDR=`ip addr show ${IFACE} | awk '$2 ~ "192.168.2" {print $2}'`
@@ -77,6 +116,7 @@ sudo mkdir -p /etc/consul.d
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   echo server
+  enable_acls_on_server
   generate_certificate_config true "/etc/pki/tls/private/server-key.pem" "/etc/pki/tls/certs/server.pem" "/etc/pki/tls/certs/consul-ca.pem" server
   if [ "${TRAVIS}" == "true" ]; then
     sudo mkdir -p /etc/consul.d
@@ -105,6 +145,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
     export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
     export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    export CONSUL_HTTP_TOKEN=b1gs33cr3t
     # upload vars to consul kv
     while read a b; do
       k=${b%%=*}

@@ -24,3 +24,52 @@
     2018/10/04 08:03:27 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
     2018/10/04 08:03:27 [INFO] agent: started state syncer
     2018/10/04 08:03:27 [INFO] agent: Synced node info
+    2018/10/04 08:57:01 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 08:57:04 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 08:57:05 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/04 08:57:05 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/04 08:57:05 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 08:57:05 [WARN] manager: No servers available
+    2018/10/04 08:57:05 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 08:57:08 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 08:57:13 [WARN] manager: No servers available
+    2018/10/04 08:57:13 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 08:57:27 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 08:57:28 [WARN] manager: No servers available
+    2018/10/04 08:57:28 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 08:57:43 [WARN] manager: No servers available
+    2018/10/04 08:57:43 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 08:57:44 [WARN] manager: No servers available
+    2018/10/04 08:57:44 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 08:57:57 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 08:58:00 [WARN] manager: No servers available
+    2018/10/04 08:58:00 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 08:58:02 [WARN] manager: No servers available
+    2018/10/04 08:58:02 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 08:58:20 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 08:58:20 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 08:58:22 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: stream closed
+    2018/10/04 08:58:22 [ERR] agent: Coordinate update error: rpc error making call: stream closed
+    2018/10/04 08:58:26 [INFO] consul: New leader elected: leader01
+    2018/10/04 08:58:26 [INFO] agent: Synced node info
+    2018/10/04 08:58:29 [INFO] agent: Synced node info
+    2018/10/04 08:58:47 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 08:58:47 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 08:59:13 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 08:59:13 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 08:59:38 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 08:59:38 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 09:00:04 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 09:00:04 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 09:00:16 [INFO] agent: Synced node info
+    2018/10/04 09:00:25 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 09:00:25 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 09:00:40 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 09:00:40 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 09:00:59 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 09:00:59 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 09:01:19 [INFO] agent: Synced node info
+    2018/10/04 09:01:27 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 09:01:27 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/04 09:01:53 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 09:01:53 [WARN] agent: Coordinate update blocked by ACLs
