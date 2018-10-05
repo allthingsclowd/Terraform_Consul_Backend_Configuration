@@ -84,11 +84,11 @@ EOF
     
     # Generate a certificate for the Consul server
     echo '{"key":{"algo":"rsa","size":2048}}' | cfssl gencert -ca=consul-ca.pem -ca-key=consul-ca-key.pem -config=cfssl.json \
-    -hostname="server.allthingscloud1.consul,localhost,127.0.0.1" - | cfssljson -bare server
+    -hostname="leader01.allthingscloud1.consul,localhost,127.0.0.1,192.168.2.11,0.0.0.0" - | cfssljson -bare server
 
     # Generate a certificate for the Consul client
     echo '{"key":{"algo":"rsa","size":2048}}' | cfssl gencert -ca=consul-ca.pem -ca-key=consul-ca-key.pem -config=cfssl.json \
-    -hostname="client.allthingscloud1.consul,localhost,127.0.0.1" - | cfssljson -bare client
+    -hostname="follower01.allthingscloud1.consul,localhost,127.0.0.1,192.168.2.110,0.0.0.0" - | cfssljson -bare client
 
     # Generate a certificate for the CLI
     echo '{"key":{"algo":"rsa","size":2048}}' | cfssl gencert -ca=consul-ca.pem -ca-key=consul-ca-key.pem -profile=client \

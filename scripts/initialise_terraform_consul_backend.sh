@@ -33,20 +33,18 @@ configure_terraform_consul_backend () {
 
     # admin policy hcl definition file
     tee /usr/local/bootstrap/main.tf <<EOF
-resource "null_resource" "helloWorld2" {
-  provisioner "local-exec" {
-    command = "echo hello world2"
-  }
+resource "null_resource" "Terraform-Consul-Backend-Demo" {
+        provisioner "local-exec" {
+            command = "echo hello Consul"
+        }
 } 
 
 terraform {
         backend "consul" {
-            address = "localhost:8321"
+            address = "127.0.0.1:8321"
             scheme  = "https"
-            access_token = "${CONSUL_ACCESS_TOKEN}"
             path    = "dev/app1/"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
-            datacenter = "allthingscloud1"
         }
 }
 EOF
@@ -57,13 +55,21 @@ EOF
     pwd
     ls
     # initialise the consul backend
-    TF_LOG=DEBUG terraform init
-    if [[ ${?} > 0 ]]; then 
-        TF_LOG=DEBUG terraform init
+    TF_LOG=TRACE terraform init
+    if [[ ${?} > 0 ]]; then
+        rm -rf .terraform/
+        TF_LOG=TRACE terraform init -lock=false
     fi
     
-    terraform plan
-    terraform apply --auto-approve
+    TF_LOG=TRACE terraform plan
+    if [[ ${?} > 0 ]]; then
+        TF_LOG=TRACE terraform plan -lock=false
+    fi
+
+    TF_LOG=TRACE terraform apply --auto-approve
+    if [[ ${?} > 0 ]]; then
+        TF_LOG=TRACE terraform apply --auto-approve -lock=false
+    fi
     popd
 
     echo 'Terraform state file in Consul backend =>'
@@ -73,7 +79,7 @@ EOF
     export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     # Read Consul
-    consul kv get "dev/app1"
+    consul kv get "dev/app1/"
 
     echo 'Terraform startup logs =>'
     cat /usr/local/bootstrap/logs/terraform_follower01.log
