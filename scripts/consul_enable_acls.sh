@@ -12,7 +12,7 @@ step1_enable_acls_on_server () {
   }
 EOF
   # read in new configs
-  sudo killall -1 consul
+  restart_consul
 
 }
 
@@ -42,6 +42,8 @@ setup_environment () {
     export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     export CONSUL_HTTP_TOKEN=${MASTERACL}
+
+    export AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
 
 }
 
@@ -93,7 +95,7 @@ step6_create_kv_app_token () {
 # }
 
 step2_create_agent_token () {
-  AGENTACL=`curl -k \
+  AGENTACL=$(curl -k \
         --request PUT \
         --header "X-Consul-Token: ${MASTERACL}" \
         --data \
@@ -101,7 +103,9 @@ step2_create_agent_token () {
       "Name": "Agent Token",
       "Type": "client",
       "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
-    }' https://127.0.0.1:8321/v1/acl/create | jq -r .ID`
+    }' https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
+
+
 
   echo "The agent ACL received => ${AGENTACL}"
   echo -n ${AGENTACL} > /usr/local/bootstrap/.client_agent_token
@@ -124,7 +128,7 @@ step3_enable_acl_for_agents () {
     }" https://127.0.0.1:8321/v1/agent/token/acl_agent_token
 
   # lets kill past instance to force reload of new config
-  sudo killall -v -HUP consul
+  restart_consul
   
 }
 
@@ -136,11 +140,28 @@ step4_enable_anonymous_token () {
   '{
     "ID": "anonymous",
     "Type": "client",
-    "Rules": "node \"\" { policy = \"read\" } service \"consul\" { policy = \"read\" } key \"_rexec\" { policy = \"write\" }
+    "Rules": "node \"\" { policy = \"read\" } service \"consul\" { policy = \"read\" } key \"_rexec\" { policy = \"write\" }"
   }' https://127.0.0.1:8321/v1/acl/update
 }
 
+restart_consul () {
+    
+    sudo killall -9 -v consul
+    
+    if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
 
+      /usr/local/bin/consul members 2>/dev/null || {
+        sudo cp -r /usr/local/bootstrap/conf/consul.d/* /etc/consul.d/.
+        sudo /usr/local/bin/consul agent -server -ui -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
+      }
+    else
+      /usr/local/bin/consul members 2>/dev/null || {
+        /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
+      }
+    fi
+    sleep 10
+  
+}
 
 consul_acl_config () {
 
@@ -148,19 +169,18 @@ consul_acl_config () {
   if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
     echo server
     step1_enable_acls_on_server ${MASTERACL}
-    sleep 10
     step2_create_agent_token
     step3_enable_acl_for_agents
-    sleep 10
     step4_enable_anonymous_token
     verify_consul_access
-    # for terraform provider
-    step5_create_session_app_token
+
     
   else
     echo agent
     step3_enable_acl_for_agents
-    sleep10
+    # for terraform provider
+    step5_create_session_app_token "devapp1" ${HOSTNAME}
+    step6_create_kv_app_token "terraform" "dev/app1/"
     verify_consul_access
   fi
 

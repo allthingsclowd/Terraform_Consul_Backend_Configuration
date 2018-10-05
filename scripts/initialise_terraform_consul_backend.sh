@@ -28,8 +28,8 @@ configure_terraform_consul_backend () {
     [ -f /usr/local/bootstrap/main.tf ] && sudo rm /usr/local/bootstrap/main.tf
     [ -f /usr/local/bootstrap/.terraform ] && sudo rm -rf /usr/local/bootstrap/.terraform
 
-    # CONSUL_ACCESS_TOKEN=`cat /usr/local/bootstrap/.dev-app-1_acl`
-    #             access_token = "${CONSUL_ACCESS_TOKEN}"
+    CONSUL_ACCESS_TOKEN=`cat /usr/local/bootstrap/.terraform_acl`
+                
 
     # admin policy hcl definition file
     tee /usr/local/bootstrap/main.tf <<EOF
@@ -43,6 +43,7 @@ terraform {
         backend "consul" {
             address = "localhost:8321"
             scheme  = "https"
+            access_token = "${CONSUL_ACCESS_TOKEN}"
             path    = "dev/app1/"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
             datacenter = "allthingscloud1"
