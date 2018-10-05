@@ -3,7 +3,7 @@
     Join completed. Synced with 1 initial agents
 ==> Consul agent running!
            Version: 'v1.2.3'
-           Node ID: 'eb1f739b-60db-8928-dc1f-8ed9918afdfd'
+           Node ID: 'deddf43e-bcef-850c-4a3d-8545c881936e'
          Node name: 'follower01'
         Datacenter: 'allthingscloud1' (Segment: '')
             Server: false (Bootstrap: false)
@@ -13,31 +13,229 @@
 
 ==> Log data will now stream in as it occurs:
 
-    2018/10/04 21:18:15 [INFO] serf: EventMemberJoin: follower01 192.168.2.110
-    2018/10/04 21:18:15 [WARN] agent/proxy: running as root, will not start managed proxies
-    2018/10/04 21:18:15 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
-    2018/10/04 21:18:15 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
-    2018/10/04 21:18:15 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
-    2018/10/04 21:18:15 [INFO] agent: (LAN) joining: [192.168.2.11]
-    2018/10/04 21:18:15 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
-    2018/10/04 21:18:15 [INFO] agent: (LAN) joined: 1 Err: <nil>
-    2018/10/04 21:18:15 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
-    2018/10/04 21:18:15 [INFO] agent: started state syncer
-    2018/10/04 21:18:15 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 21:18:15 [WARN] agent: Node info update blocked by ACLs
-    2018/10/04 21:18:16 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 21:18:16 [WARN] agent: Node info update blocked by ACLs
-    2018/10/04 21:18:25 [INFO] agent: Updated agent's ACL token "acl_agent_token"
-    2018/10/04 21:18:25 [INFO] agent: Caught signal:  hangup
-    2018/10/04 21:18:25 [INFO] agent: Reloading configuration...
-    2018/10/04 21:18:26 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
-    2018/10/04 21:18:26 [ERR] http: Request GET /v1/kv/dev/app1/?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52084
-    2018/10/04 21:18:26 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
-    2018/10/04 21:18:26 [ERR] http: Request GET /v1/kv/dev/app1/?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52086
-    2018/10/04 21:18:26 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
-    2018/10/04 21:18:26 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52088
-    2018/10/04 21:18:26 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
-    2018/10/04 21:18:26 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:52090
-    2018/10/04 21:18:26 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
-    2018/10/04 21:18:26 [ERR] http: Request GET /v1/kv/dev/app1, error: rpc error making call: Permission denied from=[::1]:52092
-    2018/10/04 21:20:08 [INFO] agent: Synced node info
+    2018/10/04 21:30:12 [INFO] serf: EventMemberJoin: follower01 192.168.2.110
+    2018/10/04 21:30:12 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+    2018/10/04 21:30:12 [WARN] agent/proxy: running as root, will not start managed proxies
+    2018/10/04 21:30:12 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+    2018/10/04 21:30:12 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
+    2018/10/04 21:30:12 [INFO] agent: (LAN) joining: [192.168.2.11]
+    2018/10/04 21:30:12 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:30:12 [WARN] memberlist: Refuting an alive message
+    2018/10/04 21:30:12 [INFO] agent: (LAN) joined: 1 Err: <nil>
+    2018/10/04 21:30:12 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:30:12 [INFO] agent: started state syncer
+    2018/10/04 21:30:12 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 21:30:12 [WARN] agent: Node info update blocked by ACLs
+    2018/10/04 21:30:12 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 21:30:12 [WARN] agent: Node info update blocked by ACLs
+    2018/10/04 21:30:22 [INFO] agent: Updated agent's ACL token "acl_agent_token"
+    2018/10/04 21:30:22 [INFO] agent: Caught signal:  hangup
+    2018/10/04 21:30:22 [INFO] agent: Reloading configuration...
+    2018/10/04 21:30:23 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:30:23 [ERR] http: Request GET /v1/kv/dev/app1/?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:36322
+    2018/10/04 21:30:23 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:30:23 [ERR] http: Request GET /v1/kv/dev/app1/?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:36326
+    2018/10/04 21:30:23 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:30:23 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:36328
+    2018/10/04 21:30:23 [ERR] consul: "Session.Apply" RPC failed to server 192.168.2.11:8300: rpc error making call: ACL not found
+    2018/10/04 21:30:23 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: rpc error making call: ACL not found from=[::1]:36332
+    2018/10/04 21:30:23 [ERR] consul: "KVS.Get" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/04 21:30:23 [ERR] http: Request GET /v1/kv/dev/app1, error: rpc error making call: Permission denied from=[::1]:36334
+    2018/10/04 21:30:52 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:30:55 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:30:56 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/04 21:30:56 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/04 21:30:56 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:30:59 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:31:02 [WARN] manager: No servers available
+    2018/10/04 21:31:02 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:31:12 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 21:31:22 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/04 21:31:28 [WARN] manager: No servers available
+    2018/10/04 21:31:28 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:31:46 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:31:46 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:31:48 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: stream closed
+    2018/10/04 21:31:48 [ERR] agent: Coordinate update error: rpc error making call: stream closed
+    2018/10/04 21:31:48 [WARN] memberlist: Refuting an alive message
+    2018/10/04 21:31:49 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:31:49 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:31:49 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:32:06 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:32:06 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:32:06 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:32:24 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:32:27 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:32:28 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/04 21:32:28 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/04 21:32:28 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:32:31 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:32:40 [WARN] manager: No servers available
+    2018/10/04 21:32:40 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:32:52 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 21:32:59 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/04 21:32:59 [ERR] consul: "Catalog.NodeServices" RPC failed to server 192.168.2.11:8300: rpc error making call: EOF
+    2018/10/04 21:32:59 [ERR] agent: failed to sync remote state: rpc error making call: EOF
+    2018/10/04 21:33:03 [WARN] manager: No servers available
+    2018/10/04 21:33:03 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:33:15 [WARN] manager: No servers available
+    2018/10/04 21:33:15 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:33:24 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:33:24 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:33:25 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:33:25 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:33:25 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:33:29 [WARN] memberlist: Refuting an alive message
+    2018/10/04 21:33:53 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:33:53 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:33:53 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:34:08 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:34:11 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:34:12 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/04 21:34:12 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/04 21:34:12 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:34:15 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:34:18 [WARN] manager: No servers available
+    2018/10/04 21:34:18 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:34:32 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 21:34:35 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/04 21:34:35 [ERR] consul: "Catalog.NodeServices" RPC failed to server 192.168.2.11:8300: rpc error making call: EOF
+    2018/10/04 21:34:35 [ERR] agent: failed to sync remote state: rpc error making call: EOF
+    2018/10/04 21:34:40 [WARN] manager: No servers available
+    2018/10/04 21:34:40 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:35:01 [WARN] manager: No servers available
+    2018/10/04 21:35:01 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:35:04 [WARN] manager: No servers available
+    2018/10/04 21:35:04 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:35:08 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:35:08 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:35:11 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:35:11 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:35:11 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:35:18 [WARN] memberlist: Refuting an alive message
+    2018/10/04 21:35:38 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:35:38 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:35:38 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:35:41 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:35:44 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:35:45 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/04 21:35:45 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/04 21:35:45 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:35:48 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:35:51 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/04 21:35:51 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: EOF
+    2018/10/04 21:35:51 [ERR] agent: Coordinate update error: rpc error making call: EOF
+    2018/10/04 21:35:58 [WARN] manager: No servers available
+    2018/10/04 21:35:58 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:36:12 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 21:36:16 [WARN] manager: No servers available
+    2018/10/04 21:36:16 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:36:25 [WARN] manager: No servers available
+    2018/10/04 21:36:25 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:36:33 [WARN] manager: No servers available
+    2018/10/04 21:36:33 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:36:36 [WARN] manager: No servers available
+    2018/10/04 21:36:36 [ERR] http: Request PUT /v1/session/create?dc=allthingscloud1, error: No known Consul servers from=[::1]:36380
+    2018/10/04 21:36:40 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:36:40 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:36:43 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:36:43 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:36:43 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:36:48 [WARN] memberlist: Refuting an alive message
+    2018/10/04 21:37:04 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:37:04 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:37:04 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:37:19 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:37:21 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:37:23 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/04 21:37:23 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/04 21:37:23 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:37:25 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:37:26 [WARN] manager: No servers available
+    2018/10/04 21:37:26 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:37:28 [ERR] memberlist: Push/Pull with leader01 failed: dial tcp 192.168.2.11:8301: i/o timeout
+    2018/10/04 21:37:30 [WARN] manager: No servers available
+    2018/10/04 21:37:30 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:37:42 [WARN] manager: No servers available
+    2018/10/04 21:37:42 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:37:50 [WARN] manager: No servers available
+    2018/10/04 21:37:50 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:37:52 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 21:37:53 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/04 21:38:06 [WARN] manager: No servers available
+    2018/10/04 21:38:06 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:38:14 [WARN] manager: No servers available
+    2018/10/04 21:38:14 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:38:25 [WARN] manager: No servers available
+    2018/10/04 21:38:25 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/04 21:38:32 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/04 21:38:38 [WARN] manager: No servers available
+    2018/10/04 21:38:38 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/04 21:38:39 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/04 21:38:39 [WARN] memberlist: Refuting an alive message
+    2018/10/04 21:38:39 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/04 21:38:42 [ERR] consul: "Catalog.NodeServices" RPC failed to server 192.168.2.11:8300: rpc error making call: stream closed
+    2018/10/04 21:38:42 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:38:42 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:38:42 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:00 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:00 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:00 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:23 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:23 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:23 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/04 21:39:36 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/04 21:39:38 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/05 06:24:42 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/05 06:24:42 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/05 06:24:42 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/05 06:24:44 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/05 06:24:49 [WARN] manager: No servers available
+    2018/10/05 06:24:49 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/05 06:24:54 [WARN] manager: No servers available
+    2018/10/05 06:24:54 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/05 06:24:55 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/05 06:25:08 [WARN] manager: No servers available
+    2018/10/05 06:25:08 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/05 06:25:11 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/05 06:25:12 [WARN] manager: No servers available
+    2018/10/05 06:25:12 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/05 06:25:21 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/05 06:25:21 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/05 06:25:23 [ERR] consul: "Catalog.NodeServices" RPC failed to server 192.168.2.11:8300: rpc error making call: stream closed
+    2018/10/05 06:25:23 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:25:23 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:25:23 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:25:30 [WARN] memberlist: Refuting an alive message
+    2018/10/05 06:25:41 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:25:41 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:25:41 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:26:07 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:26:07 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:26:07 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:26:25 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/05 06:26:28 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/05 06:26:29 [INFO] memberlist: Marking leader01 as failed, suspect timeout reached (0 peer confirmations)
+    2018/10/05 06:26:29 [INFO] serf: EventMemberFailed: leader01 192.168.2.11
+    2018/10/05 06:26:29 [INFO] consul: removing server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/05 06:26:30 [WARN] manager: No servers available
+    2018/10/05 06:26:30 [ERR] agent: failed to sync remote state: No known Consul servers
+    2018/10/05 06:26:32 [INFO] memberlist: Suspect leader01 has failed, no acks received
+    2018/10/05 06:26:33 [ERR] yamux: keepalive failed: i/o deadline reached
+    2018/10/05 06:26:33 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: EOF
+    2018/10/05 06:26:33 [ERR] agent: Coordinate update error: rpc error making call: EOF
+    2018/10/05 06:26:51 [INFO] serf: attempting reconnect to leader01 192.168.2.11:8301
+    2018/10/05 06:26:52 [WARN] manager: No servers available
+    2018/10/05 06:26:52 [ERR] agent: Coordinate update error: No known Consul servers
+    2018/10/05 06:26:54 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/05 06:26:54 [WARN] memberlist: Refuting an alive message
+    2018/10/05 06:26:54 [INFO] consul: adding server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/05 06:26:55 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:26:55 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:26:55 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:27:23 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:27:23 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:27:23 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:27:52 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:27:52 [WARN] agent: Syncing node info failed. rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 06:27:52 [ERR] agent: failed to sync remote state: rpc error making call: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
