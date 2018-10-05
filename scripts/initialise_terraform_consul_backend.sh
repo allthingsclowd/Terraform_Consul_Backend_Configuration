@@ -25,10 +25,11 @@ configure_terraform_consul_backend () {
 
     echo 'Start Terraform Consul Backend Config'
 
-    sudo rm /usr/local/bootstrap/main.tf
-    sudo rm -rf /usr/local/bootstrap/.terraform
+    [ -f /usr/local/bootstrap/main.tf ] && sudo rm /usr/local/bootstrap/main.tf
+    [ -f /usr/local/bootstrap/.terraform ] && sudo rm -rf /usr/local/bootstrap/.terraform
 
-    CONSUL_ACCESS_TOKEN=`cat /usr/local/bootstrap/.dev-app-1_acl`
+    # CONSUL_ACCESS_TOKEN=`cat /usr/local/bootstrap/.dev-app-1_acl`
+    #             access_token = "${CONSUL_ACCESS_TOKEN}"
 
     # admin policy hcl definition file
     tee /usr/local/bootstrap/main.tf <<EOF
@@ -41,7 +42,6 @@ resource "null_resource" "helloWorld2" {
 terraform {
         backend "consul" {
             address = "localhost:8321"
-            access_token = "${CONSUL_ACCESS_TOKEN}"
             scheme  = "https"
             path    = "dev/app1/"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
@@ -60,10 +60,6 @@ EOF
     if [[ ${?} > 0 ]]; then 
         TF_LOG=DEBUG terraform init
     fi
-
-    echo 'Terraform startup logs =>'
-    cat /usr/local/bootstrap/logs/terraform_follower01.log
-
     
     terraform plan
     terraform apply --auto-approve
@@ -77,6 +73,9 @@ EOF
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     # Read Consul
     consul kv get "dev/app1"
+
+    echo 'Terraform startup logs =>'
+    cat /usr/local/bootstrap/logs/terraform_follower01.log
 
     echo 'Finished Terraform Consul Backend Config'   
 }
