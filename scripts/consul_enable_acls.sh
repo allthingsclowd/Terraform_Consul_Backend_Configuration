@@ -45,37 +45,11 @@ setup_environment () {
 
 }
 
-install_binaries () {
-
-    # check consul binary
-    [ -f /usr/local/bin/consul ] &>/dev/null || {
-        pushd /usr/local/bin
-        [ -f consul_1.2.3_linux_amd64.zip ] || {
-            sudo wget https://releases.hashicorp.com/consul/1.2.3/consul_1.2.3_linux_amd64.zip
-        }
-        sudo unzip consul_1.2.3_linux_amd64.zip
-        sudo chmod +x consul
-        popd
-    }
-
-    # check terraform binary
-    [ -f /usr/local/bin/terraform ] &>/dev/null || {
-        pushd /usr/local/bin
-        [ -f terraform_0.11.8_linux_amd64.zip ] || {
-            sudo wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
-        }
-        sudo unzip terraform_0.11.8_linux_amd64.zip
-        sudo chmod +x terraform
-        popd
-    }
-
-}
-
-create_session_app_token () {
+step5_create_session_app_token () {
 
   APPSESSION=$(curl -k \
     --request PUT \
-    --header "X-Consul-Token: b1gs33cr3t" \
+    --header "X-Consul-Token: ${1}" \
     --data \
     "{
       \"LockDelay\": \"15s\",
@@ -103,7 +77,7 @@ create_session_app_token () {
 step2_create_agent_token () {
   AGENTACL=`curl -k \
         --request PUT \
-        --header "X-Consul-Token: b1gs33cr3t" \
+        --header "X-Consul-Token: ${1}" \
         --data \
     '{
       "Name": "Agent Token",
@@ -125,7 +99,7 @@ step3_enable_acl_for_agents () {
   # add the new agent acl token via API
   curl -k \
         --request PUT \
-        --header "X-Consul-Token: b1gs33cr3t" \
+        --header "X-Consul-Token: ${1}" \
         --data \
     "{
       \"Token\": \"${AGENTACL}\"
@@ -139,7 +113,7 @@ step3_enable_acl_for_agents () {
 step4_enable_anonymous_token () {
   curl -k \
     --request PUT \
-    --header "X-Consul-Token: b1gs33cr3t" \
+    --header "X-Consul-Token: ${1}" \
     --data \
   '{
     "ID": "anonymous",
@@ -162,9 +136,9 @@ consul_acl_config () {
     sleep 10
     step4_enable_anonymous_token
     verify_consul_access
-
-
-    }
+    # for terraform provider
+    step5_create_session_app_token
+    
   else
     echo agent
     step3_enable_acl_for_agents

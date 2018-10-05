@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -x
 
-}
-
 generate_certificate_config () {
 
   sudo mkdir -p /etc/pki/tls/private
