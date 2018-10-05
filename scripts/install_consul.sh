@@ -1,18 +1,17 @@
 #!/usr/bin/env bash
 set -x
 
-enable_acl_for_agents () {
-  AGENTACL=`curl -k \
-        --request PUT \
-        --header "X-Consul-Token: b1gs33cr3t" \
-        --data \
-    '{
-      "Name": "Agent Token",
-      "Type": "client",
-      "Rules": "node \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
-    }' https://127.0.0.1:8321/v1/acl/create | jq -r .ID`
+enable_acls_on_agent () {
 
-  echo "The agent ACL received => ${AGENTACL}"
+  tee /etc/consul.d/consul_acl_setup.json <<EOF
+  {
+    "acl_datacenter": "allthingscloud1",
+    "acl_default_policy": "deny",
+    "acl_down_policy": "extend-cache"
+  }
+EOF
+
+
 }
 
 enable_acls_on_server () {
@@ -26,15 +25,6 @@ enable_acls_on_server () {
   }
 EOF
 
-    # lets kill past instance to force reload of new config
-    # sudo killall -1 consul
-
-    # Need to review this, was unable to bootstrap via API kept getting "ACL support disabled"
-    # curl -k \
-    # --request PUT \
-    # https://127.0.0.1:8321/v1/acl/bootstrap
-
-    # echo "Master ACL Token => ${MASTERACLTOKEN}"
 
 }
 
@@ -121,7 +111,7 @@ export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   echo server
-  # enable_acls_on_server
+  enable_acls_on_server
 
   generate_certificate_config true "/etc/pki/tls/private/server-key.pem" "/etc/pki/tls/certs/server.pem" "/etc/pki/tls/certs/consul-ca.pem" server
   if [ "${TRAVIS}" == "true" ]; then
@@ -159,7 +149,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   }
 else
   echo agent
-  # enable_acls_on_server
+  enable_acls_on_agent
   generate_certificate_config false "/etc/pki/tls/private/client-key.pem" "/etc/pki/tls/certs/client.pem" "/etc/pki/tls/certs/consul-ca.pem" client
   /usr/local/bin/consul members 2>/dev/null || {
     /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
