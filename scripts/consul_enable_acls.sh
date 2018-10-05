@@ -49,7 +49,7 @@ step5_create_session_app_token () {
 
   APPSESSION=$(curl -k \
     --request PUT \
-    --header "X-Consul-Token: ${1}" \
+    --header "X-Consul-Token: ${MASTERACL}" \
     --data \
     "{
       \"LockDelay\": \"15s\",
@@ -66,6 +66,24 @@ step5_create_session_app_token () {
 
 }
 
+step6_create_kv_app_token () {
+
+  APPTOKEN=$(curl -k \
+    --request PUT \
+    --header "X-Consul-Token: ${MASTERACL}" \
+    --data \
+    "{
+      \"Name\": \"${1}\",
+      \"Type\": \"client\",
+      \"Rules\": \"key \\\"${2}\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+    }" https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
+
+  echo "The ACL token for ${1} is => ${APPTOKEN}"
+  echo -n ${APPTOKEN} > /usr/local/bootstrap/.${1}_acl
+  sudo chmod ugo+r /usr/local/bootstrap/.${1}_acl
+  
+} 
+
 # add_key_in_json_file () {
 #     cat ${1}
 #     mv ${1} temp.json
@@ -77,7 +95,7 @@ step5_create_session_app_token () {
 step2_create_agent_token () {
   AGENTACL=`curl -k \
         --request PUT \
-        --header "X-Consul-Token: ${1}" \
+        --header "X-Consul-Token: ${MASTERACL}" \
         --data \
     '{
       "Name": "Agent Token",
@@ -99,7 +117,7 @@ step3_enable_acl_for_agents () {
   # add the new agent acl token via API
   curl -k \
         --request PUT \
-        --header "X-Consul-Token: ${1}" \
+        --header "X-Consul-Token: ${MASTERACL}" \
         --data \
     "{
       \"Token\": \"${AGENTACL}\"
@@ -113,7 +131,7 @@ step3_enable_acl_for_agents () {
 step4_enable_anonymous_token () {
   curl -k \
     --request PUT \
-    --header "X-Consul-Token: ${1}" \
+    --header "X-Consul-Token: ${MASTERACL}" \
     --data \
   '{
     "ID": "anonymous",
