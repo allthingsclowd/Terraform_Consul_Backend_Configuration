@@ -21,6 +21,9 @@ generate_certificate_config () {
         "https": 8321,
         "http": -1
     },
+    "verify_incoming": true,
+    "verify_outgoing": true,
+    "verify_server_hostname": true,
     "key_file": "$2",
     "cert_file": "$3",
     "ca_file": "$4"
@@ -76,7 +79,7 @@ AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
 sudo mkdir -p /etc/consul.d
 
 # Configure consul environment variables for use with certificates 
-export CONSUL_HTTP_ADDR=https://localhost:8321
+export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
 export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
 export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
 export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
