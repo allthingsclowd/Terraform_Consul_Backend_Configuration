@@ -1,31 +1,6 @@
 #!/usr/bin/env bash
 set -x
 
-enable_acls_on_agent () {
-
-  tee /etc/consul.d/consul_acl_setup.json <<EOF
-  {
-    "acl_datacenter": "allthingscloud1",
-    "acl_default_policy": "deny",
-    "acl_down_policy": "extend-cache"
-  }
-EOF
-
-
-}
-
-enable_acls_on_server () {
-
-  tee /etc/consul.d/consul_acl_setup.json <<EOF
-  {
-    "acl_datacenter": "allthingscloud1",
-    "acl_master_token": "b1gs33cr3t",
-    "acl_default_policy": "deny",
-    "acl_down_policy": "extend-cache"
-  }
-EOF
-
-
 }
 
 generate_certificate_config () {
@@ -111,7 +86,6 @@ export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   echo server
-  enable_acls_on_server
 
   generate_certificate_config true "/etc/pki/tls/private/server-key.pem" "/etc/pki/tls/certs/server.pem" "/etc/pki/tls/certs/consul-ca.pem" server
   if [ "${TRAVIS}" == "true" ]; then
@@ -149,7 +123,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   }
 else
   echo agent
-  enable_acls_on_agent
+
   generate_certificate_config false "/etc/pki/tls/private/client-key.pem" "/etc/pki/tls/certs/client.pem" "/etc/pki/tls/certs/consul-ca.pem" client
   /usr/local/bin/consul members 2>/dev/null || {
     /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
