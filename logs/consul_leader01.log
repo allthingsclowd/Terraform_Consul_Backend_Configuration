@@ -1,7 +1,7 @@
 ==> Starting Consul agent...
 ==> Consul agent running!
            Version: 'v1.2.3'
-           Node ID: '44a71fe7-30ae-dce1-414e-bbdc73a84053'
+           Node ID: '6138dcd4-de56-7ec4-b4b8-838df34950f4'
          Node name: 'leader01'
         Datacenter: 'allthingscloud1' (Segment: '<all>')
             Server: true (Bootstrap: true)
@@ -11,339 +11,44 @@
 
 ==> Log data will now stream in as it occurs:
 
-    2018/10/04 21:29:09 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:44a71fe7-30ae-dce1-414e-bbdc73a84053 Address:192.168.2.11:8300}]
-    2018/10/04 21:29:09 [INFO] serf: EventMemberJoin: leader01.allthingscloud1 192.168.2.11
-    2018/10/04 21:29:09 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
-    2018/10/04 21:29:09 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
-    2018/10/04 21:29:09 [INFO] raft: Node at 192.168.2.11:8300 [Follower] entering Follower state (Leader: "")
-    2018/10/04 21:29:09 [INFO] consul: Adding LAN server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
-    2018/10/04 21:29:09 [INFO] consul: Handled member-join event for server "leader01.allthingscloud1" in area "wan"
-    2018/10/04 21:29:09 [WARN] agent/proxy: running as root, will not start managed proxies
-    2018/10/04 21:29:09 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
-    2018/10/04 21:29:09 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
-    2018/10/04 21:29:09 [INFO] agent: started state syncer
-    2018/10/04 21:29:16 [ERR] agent: failed to sync remote state: No cluster leader
-    2018/10/04 21:29:17 [WARN] raft: Heartbeat timeout from "" reached, starting election
-    2018/10/04 21:29:17 [INFO] raft: Node at 192.168.2.11:8300 [Candidate] entering Candidate state in term 2
-    2018/10/04 21:29:17 [INFO] raft: Election won. Tally: 1
-    2018/10/04 21:29:17 [INFO] raft: Node at 192.168.2.11:8300 [Leader] entering Leader state
-    2018/10/04 21:29:17 [INFO] consul: cluster leadership acquired
-    2018/10/04 21:29:17 [INFO] consul: New leader elected: leader01
-    2018/10/04 21:29:17 [INFO] consul: Created ACL master token from configuration
-    2018/10/04 21:29:17 [INFO] consul: ACL bootstrap disabled, existing management tokens found
-    2018/10/04 21:29:17 [INFO] connect: initialized CA with provider "consul"
-    2018/10/04 21:29:17 [INFO] consul: member 'leader01' joined, marking health alive
-    2018/10/04 21:29:18 [INFO] agent: Updated agent's ACL token "acl_agent_token"
-    2018/10/04 21:29:18 [INFO] agent: Caught signal:  hangup
-    2018/10/04 21:29:18 [INFO] agent: Reloading configuration...
-    2018/10/04 21:29:18 [INFO] agent: Synced node info
-    2018/10/04 21:29:37 [INFO] serf: EventMemberJoin: follower01 192.168.2.110
-    2018/10/04 21:29:37 [INFO] consul: member 'follower01' joined, marking health alive
-    2018/10/04 21:30:12 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:30:14 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:30:52 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:30:59 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:31:12 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:54322: read: connection reset by peer from=192.168.2.110:54322
-    2018/10/04 21:31:46 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:31:48 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:31:49 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:32:06 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:32:23 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:56196: write: connection reset by peer
-    2018/10/04 21:32:24 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:32:24 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:33:24 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:33:25 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:33:29 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:33:53 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:34:08 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:34:08 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:43968: write: connection reset by peer
-    2018/10/04 21:34:29 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:35:08 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:35:11 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:35:18 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:35:38 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:35:40 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:44069: write: connection reset by peer
-    2018/10/04 21:35:41 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:35:41 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:36:40 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:36:43 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:36:48 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:37:04 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:37:18 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:37:19 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:37:43 [ERR] yamux: Failed to write header: tls: use of closed connection
-    2018/10/04 21:37:43 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:54088: read: connection reset by peer from=192.168.2.110:54088
-    2018/10/04 21:38:39 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/04 21:38:39 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:38:42 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:39:00 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:39:23 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/04 21:39:35 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/04 21:39:36 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:24:45 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:44232: read: connection reset by peer from=192.168.2.110:44232
-    2018/10/05 06:25:21 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:25:23 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:25:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:25:41 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:26:07 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:26:23 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:37123: read: connection reset by peer from=192.168.2.110:37123
-    2018/10/05 06:26:25 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:26:25 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:26:54 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:26:55 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:26:56 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:27:23 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:27:52 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:28:12 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:28:12 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:28:13 [ERR] yamux: Failed to write body: write tcp 192.168.2.11:8300->192.168.2.110:49480: write: connection reset by peer
-    2018/10/05 06:29:11 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:29:11 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:29:11 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:29:34 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:29:54 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:59804: write: connection reset by peer
-    2018/10/05 06:29:55 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:30:02 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:30:52 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:30:53 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:30:55 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:31:12 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:31:29 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:31:30 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:31:55 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:46584: read: connection reset by peer from=192.168.2.110:46584
-    2018/10/05 06:32:05 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:32:06 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:32:23 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:32:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:32:44 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:33:01 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:33:15 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:33:16 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:33:36 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:44730: read: connection reset by peer from=192.168.2.110:44730
-    2018/10/05 06:33:46 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:33:47 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:34:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:34:08 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:34:22 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:57339: write: connection reset by peer
-    2018/10/05 06:34:23 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:34:23 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:34:57 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:34:58 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:35:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:35:18 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:35:37 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:35:38 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:53571: write: connection reset by peer
-    2018/10/05 06:36:02 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:36:12 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:36:13 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:36:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:36:42 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:36:57 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:37:14 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:37:20 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:37:20 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:37:43 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:56186: read: connection reset by peer from=192.168.2.110:56186
-    2018/10/05 06:37:50 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:37:50 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:38:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:38:11 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:38:27 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:38:28 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:38:50 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:52587: read: connection reset by peer from=192.168.2.110:52587
-    2018/10/05 06:39:28 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:39:29 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:39:31 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:39:58 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:40:26 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:40:43 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:40:44 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:41:01 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:56678: read: connection reset by peer from=192.168.2.110:56678
-    2018/10/05 06:41:54 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:41:57 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:42:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:42:26 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:42:49 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:43:00 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:43:01 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:43:04 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:39938: write: connection reset by peer
-    2018/10/05 06:44:02 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:44:02 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:44:03 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:44:28 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:44:51 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:45:12 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:45:18 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:45:18 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:45:32 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:51989: read: connection reset by peer from=192.168.2.110:51989
-    2018/10/05 06:46:05 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:46:08 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:46:27 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:46:38 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:55990: read: connection reset by peer from=192.168.2.110:55990
-    2018/10/05 06:46:51 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:46:52 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:47:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:47:04 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:47:05 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:47:22 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:53399: read: connection reset by peer from=192.168.2.110:53399
-    2018/10/05 06:47:29 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:47:30 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:47:32 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:47:50 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:48:13 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:48:21 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:48:22 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:48:22 [ERR] yamux: Failed to write body: write tcp 192.168.2.11:8300->192.168.2.110:40194: write: connection reset by peer
-    2018/10/05 06:48:22 [ERR] consul.rpc: multiplex conn accept failed: write tcp 192.168.2.11:8300->192.168.2.110:40194: write: connection reset by peer from=192.168.2.110:40194
-    2018/10/05 06:48:42 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:48:43 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:48:58 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:49:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:49:06 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:49:06 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:49:13 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:49246: read: connection reset by peer from=192.168.2.110:49246
-    2018/10/05 06:49:32 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:49:33 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:49:35 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:49:56 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:50:09 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:50:09 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:50:35 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:35550: read: connection reset by peer from=192.168.2.110:35550
-    2018/10/05 06:50:40 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:50:43 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:51:01 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:51:16 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:51:16 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:51:28 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:51:30 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:51:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:51:52 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:51:53 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:46841: write: connection reset by peer
-    2018/10/05 06:51:53 [ERR] consul.rpc: multiplex conn accept failed: write tcp 192.168.2.11:8300->192.168.2.110:46841: write: connection reset by peer from=192.168.2.110:46841
-    2018/10/05 06:51:53 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:52:06 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:52:07 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:52:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:52:34 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:52:36 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:52:37 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:33949: read: connection reset by peer from=192.168.2.110:33949
-    2018/10/05 06:52:46 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:52:56 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:52:59 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:53:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:53:22 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:53:41 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:53:48 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:42090: read: connection reset by peer from=192.168.2.110:42090
-    2018/10/05 06:53:49 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:53:50 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:54:07 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:54:10 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:54:27 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:54:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:54:50 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:55:07 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:55:07 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:55:10 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:55805: read: connection reset by peer from=192.168.2.110:55805
-    2018/10/05 06:55:27 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:55:28 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:55:30 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:55:44 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:55:45 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:55:49 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:52536: write: connection reset by peer
-    2018/10/05 06:55:55 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:55:55 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:56:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:56:17 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:56:20 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:56:21 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:56:25 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:51935: read: connection reset by peer from=192.168.2.110:51935
-    2018/10/05 06:56:59 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:57:00 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:57:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:57:22 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:57:28 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:57:28 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:57:30 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:52771: read: connection reset by peer from=192.168.2.110:52771
-    2018/10/05 06:57:51 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:57:53 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:58:00 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:58:19 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:58:40 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:58:44 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:58:45 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:58:53 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:41332: read: connection reset by peer from=192.168.2.110:41332
-    2018/10/05 06:59:10 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 06:59:11 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:59:30 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 06:59:30 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 06:59:55 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:00:01 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:00:02 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:00:11 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:49794: read: connection reset by peer from=192.168.2.110:49794
-    2018/10/05 07:00:24 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:00:25 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:00:26 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:00:45 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:01:14 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:01:19 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:01:19 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:01:26 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:51501: read: connection reset by peer from=192.168.2.110:51501
-    2018/10/05 07:02:00 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:02:02 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:02:02 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:02:27 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:02:43 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:03:03 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:03:05 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:03:06 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:03:32 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:38166: read: connection reset by peer from=192.168.2.110:38166
-    2018/10/05 07:03:48 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:03:51 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:04:02 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:04:15 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:04:33 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:04:51 [ERR] yamux: Failed to write body: write tcp 192.168.2.11:8300->192.168.2.110:33762: write: connection reset by peer
-    2018/10/05 07:04:52 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:04:53 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:05:39 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:05:39 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:05:40 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:05:54 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:06:24 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:06:39 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:40993: read: connection reset by peer from=192.168.2.110:40993
-    2018/10/05 07:06:40 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:06:41 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:07:05 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:07:05 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:07:20 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:07:24 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:07:45 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:07:57 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:07:58 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:08:00 [ERR] yamux: Failed to write body: write tcp 192.168.2.11:8300->192.168.2.110:59446: write: connection reset by peer
-    2018/10/05 07:08:00 [ERR] consul.rpc: multiplex conn accept failed: write tcp 192.168.2.11:8300->192.168.2.110:59446: write: connection reset by peer from=192.168.2.110:59446
-    2018/10/05 07:08:21 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:08:23 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:08:32 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:08:40 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:09:00 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:09:14 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:09:15 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:09:23 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:55330: write: connection reset by peer
-    2018/10/05 07:09:31 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:09:32 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:09:32 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:09:48 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:10:14 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:10:31 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:10:31 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:10:32 [ERR] consul.rpc: multiplex conn accept failed: read tcp 192.168.2.11:8300->192.168.2.110:44407: read: connection reset by peer from=192.168.2.110:44407
-    2018/10/05 07:10:51 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:10:51 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:10:51 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:11:15 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:11:17 [ERR] yamux: Failed to write body: write tcp 192.168.2.11:8300->192.168.2.110:34761: write: connection reset by peer
-    2018/10/05 07:11:26 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:11:50 [WARN] memberlist: Refuting a suspect message (from: follower01)
-    2018/10/05 07:11:50 [INFO] serf: EventMemberUpdate: follower01
-    2018/10/05 07:11:51 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
-    2018/10/05 07:12:16 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "deddf43e-bcef-850c-4a3d-8545c881936e": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 08:39:28 [INFO] raft: Initial configuration (index=1): [{Suffrage:Voter ID:6138dcd4-de56-7ec4-b4b8-838df34950f4 Address:192.168.2.11:8300}]
+    2018/10/05 08:39:28 [INFO] serf: EventMemberJoin: leader01.allthingscloud1 192.168.2.11
+    2018/10/05 08:39:28 [INFO] serf: EventMemberJoin: leader01 192.168.2.11
+    2018/10/05 08:39:28 [INFO] agent: Started DNS server 0.0.0.0:8600 (udp)
+    2018/10/05 08:39:28 [INFO] raft: Node at 192.168.2.11:8300 [Follower] entering Follower state (Leader: "")
+    2018/10/05 08:39:28 [INFO] consul: Adding LAN server leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/05 08:39:28 [INFO] consul: Handled member-join event for server "leader01.allthingscloud1" in area "wan"
+    2018/10/05 08:39:28 [WARN] agent/proxy: running as root, will not start managed proxies
+    2018/10/05 08:39:28 [INFO] agent: Started DNS server 0.0.0.0:8600 (tcp)
+    2018/10/05 08:39:28 [INFO] agent: Started HTTPS server on [::]:8321 (tcp)
+    2018/10/05 08:39:28 [INFO] agent: started state syncer
+    2018/10/05 08:39:35 [ERR] agent: failed to sync remote state: No cluster leader
+    2018/10/05 08:39:35 [WARN] raft: Heartbeat timeout from "" reached, starting election
+    2018/10/05 08:39:35 [INFO] raft: Node at 192.168.2.11:8300 [Candidate] entering Candidate state in term 2
+    2018/10/05 08:39:35 [INFO] raft: Election won. Tally: 1
+    2018/10/05 08:39:35 [INFO] raft: Node at 192.168.2.11:8300 [Leader] entering Leader state
+    2018/10/05 08:39:35 [INFO] consul: cluster leadership acquired
+    2018/10/05 08:39:35 [INFO] consul: New leader elected: leader01
+    2018/10/05 08:39:35 [INFO] connect: initialized CA with provider "consul"
+    2018/10/05 08:39:35 [INFO] consul: member 'leader01' joined, marking health alive
+    2018/10/05 08:39:37 [INFO] agent: Synced node info
+    2018/10/05 08:39:38 [INFO] serf: EventMemberJoin: follower01 192.168.2.110
+    2018/10/05 08:39:38 [INFO] consul: New leader elected: leader01
+    2018/10/05 08:39:38 [INFO] consul: New leader elected: leader01
+    2018/10/05 08:39:38 [INFO] consul: member 'follower01' joined, marking health alive
+    2018/10/05 08:40:27 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "0fed7759-d12a-4fd4-0c4a-8e6ba90b578d": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 08:40:27 [INFO] serf: EventMemberUpdate: follower01
+    2018/10/05 08:40:29 [WARN] memberlist: Refuting a suspect message (from: follower01)
+    2018/10/05 08:40:30 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "0fed7759-d12a-4fd4-0c4a-8e6ba90b578d": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 08:40:52 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "0fed7759-d12a-4fd4-0c4a-8e6ba90b578d": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 08:41:12 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "0fed7759-d12a-4fd4-0c4a-8e6ba90b578d": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 08:41:25 [INFO] serf: EventMemberUpdate: follower01
+    2018/10/05 08:41:25 [ERR] yamux: Failed to write header: write tcp 192.168.2.11:8300->192.168.2.110:35232: write: connection reset by peer
+    2018/10/05 08:41:26 [WARN] memberlist: Refuting a suspect message (from: follower01)
+    2018/10/05 08:42:03 [WARN] memberlist: Refuting a suspect message (from: follower01)
+    2018/10/05 08:42:04 [INFO] serf: EventMemberUpdate: follower01
+    2018/10/05 08:42:05 [WARN] consul.fsm: EnsureRegistration failed: failed inserting node: Error while renaming Node ID: "0fed7759-d12a-4fd4-0c4a-8e6ba90b578d": Node name follower01 is reserved by node eb1f739b-60db-8928-dc1f-8ed9918afdfd with name follower01
+    2018/10/05 08:42:32 [WARN] memberlist: Refuting a suspect message (from: follower01)
+    2018/10/05 08:42:32 [INFO] serf: EventMemberUpdate: follower01
+    2018/10/05 08:42:32 [ERR] yamux: Failed to write body: write tcp 192.168.2.11:8300->192.168.2.110:45279: write: connection reset by peer
+    2018/10/05 08:42:32 [ERR] consul.rpc: multiplex conn accept failed: write tcp 192.168.2.11:8300->192.168.2.110:45279: write: connection reset by peer from=192.168.2.110:45279

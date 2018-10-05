@@ -50,7 +50,6 @@ generate_certificate_config () {
     "datacenter": "allthingscloud1",
     "data_dir": "/usr/local/consul",
     "log_level": "INFO",
-    "node_name": "${HOSTNAME}",
     "server": ${1},
     "addresses": {
         "https": "0.0.0.0"
@@ -113,10 +112,17 @@ sudo killall -1 consul &>/dev/null
 AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
 sudo mkdir -p /etc/consul.d
 
+# Configure consul environment variables for use with certificates 
+export CONSUL_HTTP_ADDR=https://localhost:8321
+export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
+export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
+export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   echo server
   # enable_acls_on_server
+
   generate_certificate_config true "/etc/pki/tls/private/server-key.pem" "/etc/pki/tls/certs/server.pem" "/etc/pki/tls/certs/consul-ca.pem" server
   if [ "${TRAVIS}" == "true" ]; then
     sudo mkdir -p /etc/consul.d
@@ -140,12 +146,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
       sudo /usr/local/bin/consul agent -server -ui -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
     
     sleep 5
-
-    export CONSUL_HTTP_ADDR=https://localhost:8321
-    export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
-    export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
-    export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
-    export CONSUL_HTTP_TOKEN=b1gs33cr3t
+    echo 'Testing Consul KV by Uploading some key/values'
     # upload vars to consul kv
     while read a b; do
       k=${b%%=*}
@@ -154,6 +155,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
       consul kv put "development/$k" $v
 
     done < /usr/local/bootstrap/var.env
+    consul members
   }
 else
   echo agent
@@ -163,6 +165,9 @@ else
     /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
     sleep 10
   }
+  
+  consul kv export "development/"
+  consul members
 fi
 
 echo consul started
