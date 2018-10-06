@@ -42,9 +42,13 @@ resource "null_resource" "Terraform-Consul-Backend-Demo" {
 terraform {
         backend "consul" {
             address = "127.0.0.1:8321"
+            access_token = "${CONSUL_ACCESS_TOKEN}"
+            lock = true
             scheme  = "https"
             path    = "dev/app1/"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
+            cert_file = "/usr/local/bootstrap/certificate-config/client.pem"
+            key_file = "/usr/local/bootstrap/certificate-config/client-key.pem"
         }
 }
 EOF
@@ -55,26 +59,20 @@ EOF
     pwd
     ls
     # initialise the consul backend
+    rm -rf .terraform/
+    echo -e "\n TERRAFORM INIT \n"
     TF_LOG=TRACE terraform init
-    if [[ ${?} > 0 ]]; then
-        rm -rf .terraform/
-        TF_LOG=TRACE terraform init -lock=false
-    fi
     
+    echo -e "\n TERRAFORM PLAN \n"
     TF_LOG=TRACE terraform plan
-    if [[ ${?} > 0 ]]; then
-        TF_LOG=TRACE terraform plan -lock=false
-    fi
 
+    echo -e "\n TERRAFORM APPLY \n"
     TF_LOG=TRACE terraform apply --auto-approve
-    if [[ ${?} > 0 ]]; then
-        TF_LOG=TRACE terraform apply --auto-approve -lock=false
-    fi
     popd
 
     echo 'Terraform state file in Consul backend =>'
     # Setup SSL settings
-    export CONSUL_HTTP_ADDR=https://localhost:8321
+    export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
     export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
     export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem

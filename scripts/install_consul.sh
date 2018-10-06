@@ -14,7 +14,7 @@ generate_certificate_config () {
     "data_dir": "/usr/local/consul",
     "log_level": "INFO",
     "server": ${1},
-    "node_name": "${HOSTNAME}"
+    "node_name": "${HOSTNAME}",
     "addresses": {
         "https": "0.0.0.0"
     },
