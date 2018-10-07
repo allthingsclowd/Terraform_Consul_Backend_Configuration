@@ -25,45 +25,77 @@ configure_terraform_consul_backend () {
 
     echo 'Start Terraform Consul Backend Config'
 
+    [ -f /usr/local/bootstrap/main.tf ] && sudo rm /usr/local/bootstrap/main.tf
+    [ -f /usr/local/bootstrap/.terraform ] && sudo rm -rf /usr/local/bootstrap/.terraform
+
+    CONSUL_ACCESS_TOKEN=`cat /usr/local/bootstrap/.terraform_acl`
+                
+
     # admin policy hcl definition file
-    tee backend.tf <<EOF
-    
+    tee /usr/local/bootstrap/main.tf <<EOF
+resource "null_resource" "Terraform-Consul-Backend-Demo" {
+        provisioner "local-exec" {
+            command = "echo hello Consul"
+        }
+} 
+
 terraform {
         backend "consul" {
-            address = "localhost:8321"
+            address = "127.0.0.1:8321"
+            access_token = "${CONSUL_ACCESS_TOKEN}"
+            lock = true
             scheme  = "https"
-            path    = "dev/app1"
+            path    = "dev/app1/"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
-            datacenter = "allthingscloud1"
+            cert_file = "/usr/local/bootstrap/certificate-config/client.pem"
+            key_file = "/usr/local/bootstrap/certificate-config/client-key.pem"
         }
 }
 EOF
 
-    grep -q -F 'backend "consul"' /usr/local/bootstrap/main.tf || cat backend.tf >> /usr/local/bootstrap/main.tf
-
-    rm backend.tf
-
-    # initialise the consul backend
-    TF_LOG=DEBUG terraform init >${LOG} &
-
-    echo 'Terraform startup logs =>'
-    cat /usr/local/bootstrap/logs/terraform_follower01.log
 
     pushd /usr/local/bootstrap
-    terraform plan
-    terraform apply --auto-approve
+    cat main.tf
+    pwd
+    ls
+    # initialise the consul backend
+    
+    echo -e "\n TERRAFORM INIT \n"
+    
+    rm -rf .terraform/
+    TF_LOG=DEBUG terraform init
+
+    if [[ ${?} > 0 ]]; then
+        rm -rf .terraform/
+        TF_LOG=TRACE terraform init -lock=false
+    fi
+    
+    echo -e "\n TERRAFORM PLAN \n"
+    TF_LOG=TRACE terraform plan
+    if [[ ${?} > 0 ]]; then
+        echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
+        TF_LOG=TRACE terraform plan -lock=false
+    fi
+
+    echo -e "\n TERRAFORM APPLY \n"
+    TF_LOG=TRACE terraform apply --auto-approve
+    if [[ ${?} > 0 ]]; then
+        echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
+        TF_LOG=TRACE terraform apply --auto-approve -lock=false
+    fi
     popd
 
-    echo 'Terraform state file in Consul backend =>'
+    echo -e '\n RESULTS : Terraform state file in Consul backend =>'
     # Setup SSL settings
-    export CONSUL_HTTP_ADDR=https://localhost:8321
+    export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
     export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
     export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    export CONSUL_HTTP_TOKEN=${CONSUL_ACCESS_TOKEN}
     # Read Consul
-    consul kv get "dev/app1"
+    consul kv get "dev/app1/"
 
-    echo 'Finished Terraform Consul Backend Config'   
+    echo -e '\n Finished Terraform Consul Backend Config\n '   
 }
 
 setup_environment
