@@ -85,7 +85,7 @@ EOF
     fi
     popd
 
-    echo 'Terraform state file in Consul backend =>'
+    echo -e '\n RESULTS : Terraform state file in Consul backend =>'
     # Setup SSL settings
     export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
     export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
@@ -94,10 +94,7 @@ EOF
     # Read Consul
     consul kv get "dev/app1/"
 
-    echo 'Terraform startup logs =>'
-    cat /usr/local/bootstrap/logs/terraform_follower01.log
-
-    echo 'Finished Terraform Consul Backend Config'   
+    echo -e '\n Finished Terraform Consul Backend Config\n '   
 }
 
 setup_environment
