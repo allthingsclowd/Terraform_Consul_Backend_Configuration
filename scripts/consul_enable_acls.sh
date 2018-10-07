@@ -193,8 +193,6 @@ consul_acl_config () {
     step2_create_agent_token
     step3_add_agent_acl
     step4_enable_anonymous_token
-    verify_consul_access
-
     
   else
     echo agent
@@ -203,9 +201,14 @@ consul_acl_config () {
     # for terraform provider
     step5_create_session_app_token "devapp1" ${HOSTNAME}
     step6_create_kv_app_token "terraform" "dev/app1/"
-    verify_consul_access
+    
   fi
-
+  
+  if [ "${TRAVIS}" == "true" ]; then
+    step5_create_session_app_token "devapp1" ${HOSTNAME}
+    step6_create_kv_app_token "terraform" "dev/app1/"
+  fi
+  verify_consul_access
   echo consul started
 }
 
