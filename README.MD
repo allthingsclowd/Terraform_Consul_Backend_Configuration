@@ -287,11 +287,11 @@ consul_acl_config
 
 ```
 
-The ACLs are also operational on the cluster.
+These ACLs are also working on the cluster.
 
-Consul supports session locking as does the Terraform Consul Backend.
+Consul supports Sessions as does the Terraform Consul Backend.
 
-The following ACL was defined to enable access to for the stateful from Terraform:
+The following ACL was defined to enable access to the statefile from Terraform:
 
 ``` bash
 
@@ -352,7 +352,7 @@ This all works.... #Kinda!
 The session component is not working for me :(
 Using Consul with Terraform I should be able to prevent other users from modifying/accessing the same statefile using [Terraform State Locks](https://www.terraform.io/docs/state/locking.html) which leverages [Consul's Sessions](https://www.consul.io/docs/internals/sessions.html)
 
-Despite even using the Master ACL Token (equivalent of root access) Terraform fails to get a session lock:
+Despite even using the Master ACL Token (equivalent of root access) Terraform fails to get a state lock:
 
 Terraform initialisation works fine
 
