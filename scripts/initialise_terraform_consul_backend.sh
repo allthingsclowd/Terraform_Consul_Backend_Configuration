@@ -63,7 +63,7 @@ EOF
     echo -e "\n TERRAFORM INIT \n"
     
     rm -rf .terraform/
-    TF_LOG=TRACE terraform init
+    TF_LOG=DEBUG terraform init
 
     if [[ ${?} > 0 ]]; then
         rm -rf .terraform/
@@ -91,6 +91,7 @@ EOF
     export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
     export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    export CONSUL_HTTP_TOKEN=${CONSUL_ACCESS_TOKEN}
     # Read Consul
     consul kv get "dev/app1/"
 
