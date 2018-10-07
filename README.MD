@@ -1,4 +1,4 @@
-# HashiCorp's Consul used as a backend for HashiCorp's Terraform
+# HashiCorp's Consul used as a backend for HashiCorp's Terraform  [![Build Status](https://travis-ci.org/allthingsclowd/Terraform_Consul_Backend_Configuration.svg?branch=master)](https://travis-ci.org/allthingsclowd/Terraform_Consul_Backend_Configuration)
 
 ## [A vagrant/travis example of Consul being used as a backend for Terraform](https://www.terraform.io/docs/backends/types/consul.html)
 
