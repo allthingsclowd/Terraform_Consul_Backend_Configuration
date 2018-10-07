@@ -34,7 +34,7 @@ setup_environment () {
 
 step1_enable_acls_on_server () {
 
-  tee /etc/consul.d/consul_acl_setup.json <<EOF
+  sudo tee /etc/consul.d/consul_acl_setup.json <<EOF
   {
     "acl_datacenter": "allthingscloud1",
     "acl_master_token": "${1}",
@@ -49,7 +49,7 @@ EOF
 
 step1_enable_acls_on_agent () {
 
-  tee /etc/consul.d/consul_acl_setup.json <<EOF
+  sudo tee /etc/consul.d/consul_acl_setup.json <<EOF
   {
     "acl_datacenter": "allthingscloud1",
     "acl_default_policy": "deny",
