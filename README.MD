@@ -2,7 +2,7 @@
 
 ## [A vagrant/travis example of Consul being used as a backend for Terraform](https://www.terraform.io/docs/backends/types/consul.html)
 
-Three VMs are used in the vagrant file, Travis is an all-in-one setup (yet to be setup - work in progress):
+Three VMs are used in the vagrant file, Travis is an all-in-one setup:
  - cert01 : [simply used to illustrate how to create self signed certificates for use in a consul cluster](https://www.consul.io/docs/guides/creating-certificates.html)
  - leader01 : single node Consul "cluster" deployment running in server mode
  - follower01 : Terraform node that has a Consul agent deployed and configured
