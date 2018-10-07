@@ -7,7 +7,7 @@ resource "null_resource" "Terraform-Consul-Backend-Demo" {
 terraform {
         backend "consul" {
             address = "127.0.0.1:8321"
-            access_token = "a263b166-6df0-8f9f-880a-849f2cbc3564"
+            access_token = "11a5d8be-ab2b-d3a8-5a27-36e3958031a8"
             lock = true
             scheme  = "https"
             path    = "dev/app1/"
