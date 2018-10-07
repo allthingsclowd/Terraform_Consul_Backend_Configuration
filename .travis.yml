@@ -1,4 +1,4 @@
-language: bash
+language: go
 sudo: required
 addons:
   apt:
@@ -7,6 +7,8 @@ addons:
     - jq
     - wget
     - grep
+go:
+- '1.10'
 before_script:
 - sudo rsync -az ${TRAVIS_BUILD_DIR}/ /usr/local/bootstrap/
 - bash scripts/generate_certificates.sh
