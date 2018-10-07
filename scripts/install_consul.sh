@@ -8,7 +8,7 @@ generate_certificate_config () {
   sudo cp -r /usr/local/bootstrap/certificate-config/${5}-key.pem /etc/pki/tls/private/${5}-key.pem
   sudo cp -r /usr/local/bootstrap/certificate-config/${5}.pem /etc/pki/tls/certs/${5}.pem
   sudo cp -r /usr/local/bootstrap/certificate-config/consul-ca.pem /etc/pki/tls/certs/consul-ca.pem
-    tee /etc/consul.d/consul_cert_setup.json <<EOF
+  sudo tee /etc/consul.d/consul_cert_setup.json <<EOF
     {
     "datacenter": "allthingscloud1",
     "data_dir": "/usr/local/consul",
@@ -91,19 +91,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
   generate_certificate_config true "/etc/pki/tls/private/server-key.pem" "/etc/pki/tls/certs/server.pem" "/etc/pki/tls/certs/consul-ca.pem" server
   if [ "${TRAVIS}" == "true" ]; then
     sudo mkdir -p /etc/consul.d
-    COUNTER=0
-    HOSTURL="http://${IP}:808${COUNTER}/health"
-    # sudo /usr/local/bootstrap/scripts/consul_build_go_app_service.sh /usr/local/bootstrap/conf/consul.d/goapp.json /etc/consul.d/goapp${COUNTER}.json $HOSTURL 808${COUNTER}
-    sudo cp /usr/local/bootstrap/conf/consul.d/redis.json /etc/consul.d/redis.json
-    #SERVICE_DEFS_DIR="conf/consul.d"
-    CONSUL_SCRIPTS="scripts"
-    # ensure all scripts are executable for consul health checks
-    pushd ${CONSUL_SCRIPTS}
-    for file in `ls`;
-      do
-        sudo chmod +x $file
-      done
-    popd
+
   fi
 
   /usr/local/bin/consul members 2>/dev/null || {
