@@ -59,15 +59,30 @@ EOF
     pwd
     ls
     # initialise the consul backend
-    rm -rf .terraform/
+    
     echo -e "\n TERRAFORM INIT \n"
+    
+    rm -rf .terraform/
     TF_LOG=TRACE terraform init
+
+    if [[ ${?} > 0 ]]; then
+        rm -rf .terraform/
+        TF_LOG=TRACE terraform init -lock=false
+    fi
     
     echo -e "\n TERRAFORM PLAN \n"
     TF_LOG=TRACE terraform plan
+    if [[ ${?} > 0 ]]; then
+        echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
+        TF_LOG=TRACE terraform plan -lock=false
+    fi
 
     echo -e "\n TERRAFORM APPLY \n"
     TF_LOG=TRACE terraform apply --auto-approve
+    if [[ ${?} > 0 ]]; then
+        echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
+        TF_LOG=TRACE terraform apply --auto-approve -lock=false
+    fi
     popd
 
     echo 'Terraform state file in Consul backend =>'

@@ -108,7 +108,7 @@ if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then
 
   /usr/local/bin/consul members 2>/dev/null || {
       sudo cp -r /usr/local/bootstrap/conf/consul.d/* /etc/consul.d/.
-      sudo /usr/local/bin/consul agent -server -ui -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
+      sudo /usr/local/bin/consul agent -server -ui -log-level=trace -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
     
     sleep 5
     echo 'Testing Consul KV by Uploading some key/values'
@@ -127,7 +127,7 @@ else
 
   generate_certificate_config false "/etc/pki/tls/private/client-key.pem" "/etc/pki/tls/certs/client.pem" "/etc/pki/tls/certs/consul-ca.pem" client
   /usr/local/bin/consul members 2>/dev/null || {
-    /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
+    /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} -log-level=trace ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
     sleep 10
   }
   

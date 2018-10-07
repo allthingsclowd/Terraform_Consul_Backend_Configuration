@@ -3,7 +3,7 @@ set -x
 
 setup_environment () {
     source /usr/local/bootstrap/var.env
-    MASTERACL=bob
+    MASTERACL=mymasteraclpassword
 
 
     IFACE=`route -n | awk '$1 == "192.168.2.0" {print $8;exit}'`
@@ -156,7 +156,7 @@ step6_create_kv_app_token () {
     "{
       \"Name\": \"${1}\",
       \"Type\": \"client\",
-      \"Rules\": \"key \\\"${2}\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+      \"Rules\": \"key \\\"\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
     }" https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
 
   echo "The ACL token for ${1} is => ${APPTOKEN}"
@@ -173,11 +173,11 @@ restart_consul () {
 
       /usr/local/bin/consul members 2>/dev/null || {
         sudo cp -r /usr/local/bootstrap/conf/consul.d/* /etc/consul.d/.
-        sudo /usr/local/bin/consul agent -server -ui -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
+        sudo /usr/local/bin/consul agent -server -log-level=trace -ui -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -bootstrap-expect=1 >${LOG} &
       }
     else
       /usr/local/bin/consul members 2>/dev/null || {
-        /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
+        /usr/local/bin/consul agent -log-level=trace -client=0.0.0.0 -bind=${IP} ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
       }
     fi
     sleep 10
