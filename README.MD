@@ -1,4 +1,4 @@
-# HashiCorp's Consul used as a backend for HashiCorp's Terraform
+# HashiCorp's Consul used as a backend for HashiCorp's Terraform  [![Build Status](https://travis-ci.org/allthingsclowd/Terraform_Consul_Backend_Configuration.svg?branch=master)](https://travis-ci.org/allthingsclowd/Terraform_Consul_Backend_Configuration)
 
 ## [A vagrant/travis example of Consul being used as a backend for Terraform](https://www.terraform.io/docs/backends/types/consul.html)
 
@@ -1355,4 +1355,4 @@ And as the failure suggests, once I use `-lock=false` access to the Consul KV ba
     follower01: 2018/10/07 14:25:52 [ERR] yamux: Failed to write header: write unix @->/tmp/plugin978649154: use of closed network connection
 ```
 
-To be continued...
+To be continued......
