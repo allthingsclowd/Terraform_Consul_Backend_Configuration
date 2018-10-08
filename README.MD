@@ -172,6 +172,7 @@ again. For most commands, you can disable locking with the "-lock=false"
 flag, but this is not recommended.
 ```
 
+## Build details..
 
 [TLS had been configured and enabled on both the Consul Server and Agent.](https://www.consul.io/docs/agent/encryption.html#rpc-encryption-with-tls)
 ``` bash
