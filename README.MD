@@ -23,7 +23,155 @@ If you would like to use the webui then before visiting `https://192.168.2.11:83
 `consul-ca.pem` is imported into the Systems folder and trusted for all hosts.
 `consul-client.pfx` is imported into the personal login (or system) and again trusted for all hosts. The password used for the pfx keys is `bananas`.
 
-## Challenge
+## Challenge - Ascertain minimal policies/rules required to facilitate Consul as a Terraform backend when using a default DENY policy
+
+- ACL Default Policy of DENY
+``` bash
+  {
+    "acl_datacenter": "allthingscloud1",
+    "acl_master_token": "${1}",
+    "acl_default_policy": "deny",
+    "acl_down_policy": "extend-cache"
+  }
+```
+
+- ACL for Agent Token
+``` bash
+{
+      "Name": "Agent Token",
+      "Type": "client",
+      "Rules": "node \"\" { policy = \"write\" } session \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
+}
+```
+
+- ACL Annonymous Token
+``` bash
+{
+      "ID": "anonymous",
+      "Type": "client",
+      "Rules": "node \"\" { policy = \"read\" } service \"consul\" { policy = \"read\" } key \"_rexec\" { policy = \"write\" }"
+}
+```
+
+- ACL Terraform Backend Token
+``` bash
+{
+      \"Name\": \"${1}\",
+      \"Type\": \"client\",
+      \"Rules\": \"key \\\"dev/app1/\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+    }
+```
+
+## Log snippets during failed lock acquisitions
+
+- Consul Server
+``` bash
+    2018/10/08 15:37:09 [DEBUG] consul.state: Session 70380391-ecc1-decb-6d44-aa89e23fa522 TTL expired
+    2018/10/08 15:37:21 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/08 15:37:23 [DEBUG] memberlist: Initiating push/pull sync with: 192.168.2.110:8301
+    2018/10/08 15:37:32 [DEBUG] memberlist: Stream connection from=192.168.2.110:50452
+    2018/10/08 15:37:35 [DEBUG] consul: Skipping self join check for "leader01" since the cluster is too small
+    2018/10/08 15:37:36 [DEBUG] consul.state: Session 3b1f5a6d-456b-bfef-0708-1a813d1819f3 TTL expired
+    2018/10/08 15:37:38 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/08 15:37:45 [DEBUG] consul.state: Session e4bd4ed0-8891-8203-fb43-ba2d2f655599 TTL expired
+    2018/10/08 15:37:47 [DEBUG] consul.state: Session 5b294d48-52ba-6ba6-fcb3-c5cc69f7dc32 TTL expired
+    2018/10/08 15:37:47 [DEBUG] consul.state: Session 3d980974-a087-5caa-4bdf-999d141d7e5a TTL expired
+    2018/10/08 15:37:48 [DEBUG] consul.state: Session 1636b2c5-b694-12ca-3483-61aedc9e9708 TTL expired
+    2018/10/08 15:37:48 [DEBUG] consul.state: Session 2a561e94-3a87-ffad-6b22-78c5b43886c9 TTL expired
+    2018/10/08 15:37:49 [DEBUG] consul.state: Session 855f7192-1be3-a741-8aac-c2c0f1c7fb77 TTL expired
+    2018/10/08 15:37:49 [DEBUG] consul.state: Session f68a873b-1d13-3e77-edb2-ecaef07f4c2e TTL expired
+    2018/10/08 15:37:50 [DEBUG] consul.state: Session 9f3cbbb6-e879-6bac-a850-79c26c0c5f2f TTL expired
+    2018/10/08 15:37:50 [DEBUG] consul.state: Session 84c9228c-f828-e35b-7620-360b8079eea0 TTL expired
+    2018/10/08 15:37:51 [DEBUG] consul.state: Session b91ff49a-2679-dde7-3ab5-cdf174dd4a75 TTL expired
+    2018/10/08 15:37:53 [DEBUG] memberlist: Initiating push/pull sync with: 192.168.2.110:8301
+```
+
+- Consul Agent (Terraform node)
+``` bash
+    2018/10/08 15:37:02 [DEBUG] memberlist: Initiating push/pull sync with: 192.168.2.11:8301
+    2018/10/08 15:37:06 [DEBUG] http: Request PUT /v1/session/create (2.782109ms) from=127.0.0.1:52610
+    2018/10/08 15:37:06 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (588.557µs) from=127.0.0.1:52610
+    2018/10/08 15:37:06 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=3b1f5a6d-456b-bfef-0708-1a813d1819f3&flags=3304740253564472344 (552.235µs) from=127.0.0.1:52610
+    2018/10/08 15:37:15 [DEBUG] http: Request PUT /v1/session/create (2.707483ms) from=127.0.0.1:52612
+    2018/10/08 15:37:15 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (896.341µs) from=127.0.0.1:52612
+    2018/10/08 15:37:15 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=e4bd4ed0-8891-8203-fb43-ba2d2f655599&flags=3304740253564472344 (1.088035ms) from=127.0.0.1:52612
+    2018/10/08 15:37:16 [DEBUG] http: Request PUT /v1/session/create (2.813518ms) from=127.0.0.1:52614
+    2018/10/08 15:37:16 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (701.708µs) from=127.0.0.1:52614
+    2018/10/08 15:37:16 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=5b294d48-52ba-6ba6-fcb3-c5cc69f7dc32&flags=3304740253564472344 (609.24µs) from=127.0.0.1:52614
+    2018/10/08 15:37:17 [DEBUG] http: Request PUT /v1/session/create (2.632678ms) from=127.0.0.1:52616
+    2018/10/08 15:37:17 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (683.986µs) from=127.0.0.1:52616
+    2018/10/08 15:37:17 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=3d980974-a087-5caa-4bdf-999d141d7e5a&flags=3304740253564472344 (677.97µs) from=127.0.0.1:52616
+    2018/10/08 15:37:18 [DEBUG] http: Request PUT /v1/session/create (1.861562ms) from=127.0.0.1:52618
+    2018/10/08 15:37:18 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (663.676µs) from=127.0.0.1:52618
+    2018/10/08 15:37:18 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=1636b2c5-b694-12ca-3483-61aedc9e9708&flags=3304740253564472344 (495.459µs) from=127.0.0.1:52618
+    2018/10/08 15:37:18 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/08 15:37:18 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/08 15:37:18 [DEBUG] http: Request PUT /v1/session/create (2.826875ms) from=127.0.0.1:52620
+    2018/10/08 15:37:18 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (1.370138ms) from=127.0.0.1:52620
+    2018/10/08 15:37:18 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=2a561e94-3a87-ffad-6b22-78c5b43886c9&flags=3304740253564472344 (1.749438ms) from=127.0.0.1:52620
+    2018/10/08 15:37:19 [DEBUG] http: Request PUT /v1/session/create (3.092196ms) from=127.0.0.1:52622
+    2018/10/08 15:37:19 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (554.177µs) from=127.0.0.1:52622
+    2018/10/08 15:37:19 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=855f7192-1be3-a741-8aac-c2c0f1c7fb77&flags=3304740253564472344 (582.746µs) from=127.0.0.1:52622
+    2018/10/08 15:37:19 [DEBUG] http: Request PUT /v1/session/create (2.256692ms) from=127.0.0.1:52624
+    2018/10/08 15:37:19 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (673.444µs) from=127.0.0.1:52624
+    2018/10/08 15:37:19 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=f68a873b-1d13-3e77-edb2-ecaef07f4c2e&flags=3304740253564472344 (694.351µs) from=127.0.0.1:52624
+    2018/10/08 15:37:20 [DEBUG] http: Request PUT /v1/session/create (1.966446ms) from=127.0.0.1:52626
+    2018/10/08 15:37:20 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (700.55µs) from=127.0.0.1:52626
+    2018/10/08 15:37:20 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=9f3cbbb6-e879-6bac-a850-79c26c0c5f2f&flags=3304740253564472344 (704.001µs) from=127.0.0.1:52626
+    2018/10/08 15:37:20 [DEBUG] http: Request PUT /v1/session/create (2.90646ms) from=127.0.0.1:52628
+    2018/10/08 15:37:20 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (849.148µs) from=127.0.0.1:52628
+    2018/10/08 15:37:20 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=84c9228c-f828-e35b-7620-360b8079eea0&flags=3304740253564472344 (590.808µs) from=127.0.0.1:52628
+    2018/10/08 15:37:21 [DEBUG] http: Request PUT /v1/session/create (2.145447ms) from=127.0.0.1:52630
+    2018/10/08 15:37:21 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?wait=1000ms (810.547µs) from=127.0.0.1:52630
+    2018/10/08 15:37:21 [DEBUG] http: Request GET /v1/kv/dev/app1/.lock?acquire=b91ff49a-2679-dde7-3ab5-cdf174dd4a75&flags=3304740253564472344 (792.059µs) from=127.0.0.1:52630
+    2018/10/08 15:37:23 [DEBUG] memberlist: Stream connection from=192.168.2.11:42916
+    2018/10/08 15:37:32 [DEBUG] memberlist: Initiating push/pull sync with: 192.168.2.11:8301
+    2018/10/08 15:37:43 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/08 15:37:43 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/08 15:37:53 [DEBUG] memberlist: Stream connection from=192.168.2.11:42918
+    2018/10/08 15:38:02 [DEBUG] memberlist: Initiating push/pull sync with: 192.168.2.11:8301
+    2018/10/08 15:38:02 [DEBUG] manager: Rebalanced 1 servers, next active server is leader01 (Addr: tcp/192.168.2.11:8300) (DC: allthingscloud1)
+    2018/10/08 15:38:11 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/08 15:38:11 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/08 15:38:23 [DEBUG] memberlist: Stream connection from=192.168.2.11:42920
+    2018/10/08 15:38:27 [ERR] consul: "Coordinate.Update" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/08 15:38:27 [WARN] agent: Coordinate update blocked by ACLs
+    2018/10/08 15:38:32 [DEBUG] memberlist: Initiating push/pull sync with: 192.168.2.11:8301
+    2018/10/08 15:38:45 [DEBUG] agent: Skipping remote check "serfHealth" since it is managed automatically
+    2018/10/08 15:38:45 [ERR] consul: "Catalog.Register" RPC failed to server 192.168.2.11:8300: rpc error making call: Permission denied
+    2018/10/08 15:38:45 [WARN] agent: Node info update blocked by ACLs
+```
+- Terrafrom Logs
+``` bash
+root@follower01:/vagrant# TF_LOG=DEBUG terraform plan
+2018/10/08 15:37:21 [INFO] Terraform version: 0.11.8  7a5c1d221ac209bbac66947c369815cd9ca70ed5
+2018/10/08 15:37:21 [INFO] Go runtime version: go1.10.1
+2018/10/08 15:37:21 [INFO] CLI args: []string{"/usr/local/bin/terraform", "plan"}
+2018/10/08 15:37:21 [DEBUG] Attempting to open CLI config file: /root/.terraformrc
+2018/10/08 15:37:21 [DEBUG] File doesn't exist, but doesn't need to. Ignoring.
+2018/10/08 15:37:21 [INFO] CLI command args: []string{"plan"}
+2018/10/08 15:37:21 [INFO] command: backend initialized: *consul.Backend
+2018/10/08 15:37:21 [DEBUG] checking for provider in "."
+2018/10/08 15:37:21 [DEBUG] checking for provider in "/usr/local/bin"
+2018/10/08 15:37:21 [DEBUG] checking for provider in ".terraform/plugins/linux_amd64"
+2018/10/08 15:37:21 [DEBUG] found provider "terraform-provider-null_v1.0.0_x4"
+2018/10/08 15:37:21 [DEBUG] found valid plugin: "null", "1.0.0", "/vagrant/.terraform/plugins/linux_amd64/terraform-provider-null_v1.0.0_x4"
+2018/10/08 15:37:21 [DEBUG] checking for provisioner in "."
+2018/10/08 15:37:21 [DEBUG] checking for provisioner in "/usr/local/bin"
+2018/10/08 15:37:21 [DEBUG] checking for provisioner in ".terraform/plugins/linux_amd64"
+2018/10/08 15:37:21 [INFO] command: backend *consul.Backend is not enhanced, wrapping in local
+2018/10/08 15:37:21 [INFO] backend/local: starting Plan operation
+2018/10/08 15:37:21 [INFO] created consul lock session b91ff49a-2679-dde7-3ab5-cdf174dd4a75
+
+Error: Error locking state: Error acquiring the state lock: failed to acquire lock: Unexpected response code: 404 ()
+
+Terraform acquires a state lock to protect the state from being written
+2018/10/08 15:37:21 [DEBUG] plugin: waiting for all plugin processes to complete...
+by multiple users at the same time. Please resolve the issue above and try
+again. For most commands, you can disable locking with the "-lock=false"
+flag, but this is not recommended.
+```
+
 
 [TLS had been configured and enabled on both the Consul Server and Agent.](https://www.consul.io/docs/agent/encryption.html#rpc-encryption-with-tls)
 ``` bash
@@ -352,7 +500,6 @@ EOF
 
 ```
 
-This all works.... #Kinda!
 
 ## The Issue -> State Locking!
 
