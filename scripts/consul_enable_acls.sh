@@ -62,7 +62,7 @@ EOF
 }
 
 step2_create_agent_token () {
-  AGENTACL=$(curl  \
+  AGENTACL=$(curl -s \
         --request PUT \
         --header "X-Consul-Token: ${MASTERACL}" \
         --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
@@ -88,7 +88,7 @@ step3_add_agent_acl () {
   
   AGENTACL=`cat /usr/local/bootstrap/.client_agent_token`
   # add the new agent acl token via API
-  curl \
+  curl -s \
         --request PUT \
         --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
         --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
@@ -106,7 +106,7 @@ step3_add_agent_acl () {
 
 step4_enable_anonymous_token () {
     
-    curl \
+    curl -s \
       --request PUT \
       --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
       --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
@@ -122,7 +122,7 @@ step4_enable_anonymous_token () {
 
 step5_create_session_app_token () {
 
-  APPSESSION=$(curl \
+  APPSESSION=$(curl -s \
     --request PUT \
     --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
     --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
@@ -146,7 +146,7 @@ step5_create_session_app_token () {
 
 step6_create_kv_app_token () {
 
-  APPTOKEN=$(curl \
+  APPTOKEN=$(curl -s \
     --request PUT \
     --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
     --key "/usr/local/bootstrap/certificate-config/client-key.pem" \

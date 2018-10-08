@@ -125,7 +125,7 @@ EOF
 }
 
 step2_create_agent_token () {
-  AGENTACL=$(curl  \
+  AGENTACL=$(curl -s \
         --request PUT \
         --header "X-Consul-Token: ${MASTERACL}" \
         --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
@@ -209,7 +209,7 @@ step5_create_session_app_token () {
 
 step6_create_kv_app_token () {
 
-  APPTOKEN=$(curl \
+  APPTOKEN=$(curl -s \
     --request PUT \
     --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
     --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
@@ -304,7 +304,7 @@ The following ACL was defined to enable access to the statefile from Terraform:
 
 step6_create_kv_app_token () {
 
-  APPTOKEN=$(curl \
+  APPTOKEN=$(curl -s \
     --request PUT \
     --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
     --key "/usr/local/bootstrap/certificate-config/client-key.pem" \

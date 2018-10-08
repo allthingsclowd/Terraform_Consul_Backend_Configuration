@@ -70,12 +70,18 @@ EOF
         TF_LOG=TRACE terraform init -lock=false
     fi
     
+    # see if time affects session TTL?
+    sleep 40
+
     echo -e "\n TERRAFORM PLAN \n"
     TF_LOG=TRACE terraform plan
     if [[ ${?} > 0 ]]; then
         echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
         TF_LOG=TRACE terraform plan -lock=false
     fi
+
+    # see if time affects session TTL?
+    sleep 40
 
     echo -e "\n TERRAFORM APPLY \n"
     TF_LOG=TRACE terraform apply --auto-approve
