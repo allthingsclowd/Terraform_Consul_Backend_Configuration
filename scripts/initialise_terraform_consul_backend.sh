@@ -69,7 +69,7 @@ EOF
         rm -rf .terraform/
         TF_LOG=TRACE terraform init -lock=false
     fi
-    
+
     echo -e "\n TERRAFORM PLAN \n"
     TF_LOG=TRACE terraform plan
     if [[ ${?} > 0 ]]; then
