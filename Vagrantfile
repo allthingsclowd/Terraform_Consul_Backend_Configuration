@@ -16,6 +16,8 @@ Vagrant.configure("2") do |config|
     config.vm.provider "virtualbox" do |v|
         v.memory = 1024
         v.cpus = 1
+        # Hack below required for linux not MacOS
+        v.customize ["modifyvm", :id, "--audio", "none"]
     end
 
     config.vm.define "cert01" do |cert01|

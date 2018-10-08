@@ -23,7 +23,7 @@ install_golang () {
         go version
         pushd /usr/local/bin
         [ -f ${REQUIRED_GO_VERSION}.linux-amd64.tar.gz ] || {
-            sudo wget https://dl.google.com/go/${REQUIRED_GO_VERSION}.linux-amd64.tar.gz
+            sudo wget -q https://dl.google.com/go/${REQUIRED_GO_VERSION}.linux-amd64.tar.gz
         }
         sudo tar -C /usr/local -xzf ${REQUIRED_GO_VERSION}.linux-amd64.tar.gz
         popd

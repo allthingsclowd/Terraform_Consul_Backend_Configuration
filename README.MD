@@ -16,6 +16,13 @@ cd Terraform_Consul_Backend_Configuration
 vagrant up
 ```
 
+## Accessing the Consul Web UI when using the self-signed certificates
+
+If you would like to use the webui then before visiting `https://192.168.2.11:8321` it's necessary to import the new root CA and client certificates into your system. I used `KeyChain Access` on the Mac to perform these imports.
+
+`consul-ca.pem` is imported into the Systems folder and trusted for all hosts.
+`consul-client.pfx` is imported into the personal login (or system) and again trusted for all hosts. The password used for the pfx keys is `bananas`.
+
 ## Challenge
 
 [TLS had been configured and enabled on both the Consul Server and Agent.](https://www.consul.io/docs/agent/encryption.html#rpc-encryption-with-tls)
