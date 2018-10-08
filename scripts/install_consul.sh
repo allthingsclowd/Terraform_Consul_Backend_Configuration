@@ -57,7 +57,7 @@ sudo killall -1 consul &>/dev/null
 [ -f /usr/local/bin/consul ] &>/dev/null || {
     pushd /usr/local/bin
     [ -f consul_1.2.3_linux_amd64.zip ] || {
-        sudo wget https://releases.hashicorp.com/consul/1.2.3/consul_1.2.3_linux_amd64.zip
+        sudo wget -q https://releases.hashicorp.com/consul/1.2.3/consul_1.2.3_linux_amd64.zip
     }
     sudo unzip consul_1.2.3_linux_amd64.zip
     sudo chmod +x consul
@@ -68,7 +68,7 @@ sudo killall -1 consul &>/dev/null
 [ -f /usr/local/bin/terraform ] &>/dev/null || {
     pushd /usr/local/bin
     [ -f terraform_0.11.8_linux_amd64.zip ] || {
-        sudo wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+        sudo wget -q https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
     }
     sudo unzip terraform_0.11.8_linux_amd64.zip
     sudo chmod +x terraform
