@@ -41,14 +41,11 @@ resource "null_resource" "Terraform-Consul-Backend-Demo" {
 
 terraform {
         backend "consul" {
-            address = "127.0.0.1:8321"
+            address = "127.0.0.1:8500"
             access_token = "${CONSUL_ACCESS_TOKEN}"
             lock = true
-            scheme  = "https"
+            scheme  = "http"
             path    = "dev/app1/"
-            ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
-            cert_file = "/usr/local/bootstrap/certificate-config/client.pem"
-            key_file = "/usr/local/bootstrap/certificate-config/client-key.pem"
         }
 }
 EOF
@@ -87,10 +84,10 @@ EOF
 
     echo -e '\n RESULTS : Terraform state file in Consul backend =>'
     # Setup SSL settings
-    export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
-    export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
-    export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
-    export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    # export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
+    # export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
+    # export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
+    # export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     export CONSUL_HTTP_TOKEN=${CONSUL_ACCESS_TOKEN}
     # Read Consul
     consul kv get "dev/app1/"

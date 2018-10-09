@@ -22,10 +22,10 @@ setup_environment () {
     fi
 
     # Configure consul environment variables for use with certificates 
-    export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
-    export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
-    export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
-    export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+    # export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
+    # export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
+    # export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
+    # export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     export CONSUL_HTTP_TOKEN=${MASTERACL}
 
     export AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
@@ -65,15 +65,12 @@ step2_create_agent_token () {
   AGENTACL=$(curl -s \
         --request PUT \
         --header "X-Consul-Token: ${MASTERACL}" \
-        --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
-        --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
-        --cert "/usr/local/bootstrap/certificate-config/client.pem" \
         --data \
     '{
       "Name": "Agent Token",
       "Type": "client",
       "Rules": "node \"\" { policy = \"write\" } session \"\" { policy = \"write\" } service \"\" { policy = \"read\" }"
-    }' https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
+    }' http://127.0.0.1:8500/v1/acl/create | jq -r .ID)
 
 
   echo "The agent ACL received => ${AGENTACL}"
@@ -90,14 +87,11 @@ step3_add_agent_acl () {
   # add the new agent acl token via API
   curl -s \
         --request PUT \
-        --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
-        --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
-        --cert "/usr/local/bootstrap/certificate-config/client.pem" \
         --header "X-Consul-Token: ${MASTERACL}" \
         --data \
     "{
       \"Token\": \"${AGENTACL}\"
-    }" https://127.0.0.1:8321/v1/agent/token/acl_agent_token
+    }" http://127.0.0.1:8500/v1/agent/token/acl_agent_token
 
   # lets kill past instance to force reload of new config
   restart_consul
@@ -108,25 +102,19 @@ step4_enable_anonymous_token () {
     
     curl -s \
       --request PUT \
-      --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
-      --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
-      --cert "/usr/local/bootstrap/certificate-config/client.pem" \
       --header "X-Consul-Token: ${MASTERACL}" \
       --data \
     '{
       "ID": "anonymous",
       "Type": "client",
       "Rules": "node \"\" { policy = \"read\" } service \"consul\" { policy = \"read\" } key \"_rexec\" { policy = \"write\" }"
-    }' https://127.0.0.1:8321/v1/acl/update
+    }' http://127.0.0.1:8500/v1/acl/update
 }
 
 step5_create_session_app_token () {
 
   APPSESSION=$(curl -s \
     --request PUT \
-    --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
-    --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
-    --cert "/usr/local/bootstrap/certificate-config/client.pem" \
     --header "X-Consul-Token: ${MASTERACL}" \
     --data \
     "{
@@ -136,7 +124,7 @@ step5_create_session_app_token () {
       \"Checks\": [\"serfHealth\"],
       \"Behavior\": \"release\",
       \"TTL\": \"30s\"
-    }" https://127.0.0.1:8321/v1/session/create | jq -r .ID)
+    }" http://127.0.0.1:8500/v1/session/create | jq -r .ID)
 
   echo "The SESSION token for ${1} is => ${APPSESSION}"
   echo -n ${APPSESSION} > /usr/local/bootstrap/.${1}-lock
@@ -148,16 +136,13 @@ step6_create_kv_app_token () {
 
   APPTOKEN=$(curl -s \
     --request PUT \
-    --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
-    --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
-    --cert "/usr/local/bootstrap/certificate-config/client.pem" \
     --header "X-Consul-Token: ${MASTERACL}" \
     --data \
     "{
       \"Name\": \"${1}\",
       \"Type\": \"client\",
       \"Rules\": \"key \\\"dev/app1/\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
-    }" https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
+    }" http://127.0.0.1:8500/v1/acl/create | jq -r .ID)
 
   echo "The ACL token for ${1} is => ${APPTOKEN}"
   echo -n ${APPTOKEN} > /usr/local/bootstrap/.${1}_acl

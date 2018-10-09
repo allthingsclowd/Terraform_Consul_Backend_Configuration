@@ -6,13 +6,10 @@ resource "null_resource" "Terraform-Consul-Backend-Demo" {
 
 terraform {
         backend "consul" {
-            address = "127.0.0.1:8321"
-            access_token = "5e95ad62-9233-6103-7c04-c29cb961180a"
+            address = "127.0.0.1:8500"
+            access_token = "593b4cfb-69b5-dc4e-7c97-124a3150ae43"
             lock = true
-            scheme  = "https"
+            scheme  = "http"
             path    = "dev/app1/"
-            ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
-            cert_file = "/usr/local/bootstrap/certificate-config/client.pem"
-            key_file = "/usr/local/bootstrap/certificate-config/client-key.pem"
         }
 }

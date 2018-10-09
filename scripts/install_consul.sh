@@ -3,11 +3,6 @@ set -x
 
 generate_certificate_config () {
 
-  sudo mkdir -p /etc/pki/tls/private
-  sudo mkdir -p /etc/pki/tls/certs
-  sudo cp -r /usr/local/bootstrap/certificate-config/${5}-key.pem /etc/pki/tls/private/${5}-key.pem
-  sudo cp -r /usr/local/bootstrap/certificate-config/${5}.pem /etc/pki/tls/certs/${5}.pem
-  sudo cp -r /usr/local/bootstrap/certificate-config/consul-ca.pem /etc/pki/tls/certs/consul-ca.pem
   sudo tee /etc/consul.d/consul_cert_setup.json <<EOF
     {
     "datacenter": "allthingscloud1",
@@ -16,17 +11,8 @@ generate_certificate_config () {
     "server": ${1},
     "node_name": "${HOSTNAME}",
     "addresses": {
-        "https": "0.0.0.0"
-    },
-    "ports": {
-        "https": 8321,
-        "http": -1
-    },
-    "verify_incoming": true,
-    "verify_outgoing": true,
-    "key_file": "$2",
-    "cert_file": "$3",
-    "ca_file": "$4"
+        "http": "0.0.0.0"
+    }
     }
 EOF
 }
@@ -79,10 +65,10 @@ AGENT_CONFIG="-config-dir=/etc/consul.d -enable-script-checks=true"
 sudo mkdir -p /etc/consul.d
 
 # Configure consul environment variables for use with certificates 
-export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
-export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
-export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
-export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
+# export CONSUL_HTTP_ADDR=https://127.0.0.1:8321
+# export CONSUL_CACERT=/usr/local/bootstrap/certificate-config/consul-ca.pem
+# export CONSUL_CLIENT_CERT=/usr/local/bootstrap/certificate-config/cli.pem
+# export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
 
 # check for consul hostname or travis => server
 if [[ "${HOSTNAME}" =~ "leader" ]] || [ "${TRAVIS}" == "true" ]; then

@@ -20,11 +20,11 @@ Vagrant.configure("2") do |config|
         v.customize ["modifyvm", :id, "--audio", "none"]
     end
 
-    config.vm.define "cert01" do |cert01|
-        cert01.vm.hostname = ENV['CERT_NAME']
-        cert01.vm.network "private_network", ip: ENV['CERT_IP']
-        cert01.vm.provision "shell", path: "scripts/generate_certificates.sh", run: "always"
-    end 
+#   config.vm.define "cert01" do |cert01|
+#       cert01.vm.hostname = ENV['CERT_NAME']
+#       cert01.vm.network "private_network", ip: ENV['CERT_IP']
+#       cert01.vm.provision "shell", path: "scripts/generate_certificates.sh", run: "always"
+#    end 
 
     config.vm.define "leader01" do |leader01|
         leader01.vm.hostname = ENV['LEADER_NAME']
