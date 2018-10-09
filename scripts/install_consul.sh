@@ -7,7 +7,7 @@ generate_certificate_config () {
     {
     "datacenter": "allthingscloud1",
     "data_dir": "/usr/local/consul",
-    "log_level": "INFO",
+    "log_level": "TRACE",
     "server": ${1},
     "node_name": "${HOSTNAME}",
     "addresses": {
@@ -101,7 +101,7 @@ else
 
   generate_certificate_config false "/etc/pki/tls/private/client-key.pem" "/etc/pki/tls/certs/client.pem" "/etc/pki/tls/certs/consul-ca.pem" client
   /usr/local/bin/consul members 2>/dev/null || {
-    /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} -log-level=trace ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
+    /usr/local/bin/consul agent -client=0.0.0.0 -bind=${IP} -log-level=TRACE ${AGENT_CONFIG} -data-dir=/usr/local/consul -join=${LEADER_IP} >${LOG} &
     sleep 10
   }
   
