@@ -93,7 +93,7 @@ EOF
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     export CONSUL_HTTP_TOKEN=${CONSUL_ACCESS_TOKEN}
     # Read Consul
-    consul kv get "dev/app1/"
+    consul kv get "dev/app1"
 
     echo -e '\n Finished Terraform Consul Backend Config\n '   
 }
