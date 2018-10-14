@@ -45,7 +45,7 @@ terraform {
             access_token = "${CONSUL_ACCESS_TOKEN}"
             lock = true
             scheme  = "https"
-            path    = "dev/app1/"
+            path    = "dev/app1"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
             cert_file = "/usr/local/bootstrap/certificate-config/client.pem"
             key_file = "/usr/local/bootstrap/certificate-config/client-key.pem"
