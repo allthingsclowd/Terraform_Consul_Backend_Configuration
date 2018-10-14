@@ -45,7 +45,7 @@ terraform {
             access_token = "${CONSUL_ACCESS_TOKEN}"
             lock = true
             scheme  = "https"
-            path    = "dev/app1/"
+            path    = "dev/app1"
             ca_file = "/usr/local/bootstrap/certificate-config/consul-ca.pem"
             cert_file = "/usr/local/bootstrap/certificate-config/client.pem"
             key_file = "/usr/local/bootstrap/certificate-config/client-key.pem"
@@ -66,22 +66,22 @@ EOF
     TF_LOG=DEBUG terraform init
 
     if [[ ${?} > 0 ]]; then
-        rm -rf .terraform/
-        TF_LOG=TRACE terraform init -lock=false
+        echo -e "\nWARNING!!!!! TERRAFORM UNABLE TO INITIALSE \n"
+        exit 1
     fi
 
     echo -e "\n TERRAFORM PLAN \n"
     TF_LOG=TRACE terraform plan
     if [[ ${?} > 0 ]]; then
-        echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
-        TF_LOG=TRACE terraform plan -lock=false
+        echo -e "\nWARNING!!!!! TERRAFORM PLAN FAIL \n"
+        exit 1
     fi
 
     echo -e "\n TERRAFORM APPLY \n"
     TF_LOG=TRACE terraform apply --auto-approve
     if [[ ${?} > 0 ]]; then
-        echo -e "\nWARNING!!!!! TERRAFORM DISABLE SESSION LOCK \n"
-        TF_LOG=TRACE terraform apply --auto-approve -lock=false
+        echo -e "\nWARNING!!!!! TERRAFORM APPLY FAILURE \n"
+        exit 1
     fi
     popd
 
@@ -93,7 +93,7 @@ EOF
     export CONSUL_CLIENT_KEY=/usr/local/bootstrap/certificate-config/cli-key.pem
     export CONSUL_HTTP_TOKEN=${CONSUL_ACCESS_TOKEN}
     # Read Consul
-    consul kv get "dev/app1/"
+    consul kv get "dev/app1"
 
     echo -e '\n Finished Terraform Consul Backend Config\n '   
 }

@@ -120,31 +120,7 @@ step4_enable_anonymous_token () {
     }' https://127.0.0.1:8321/v1/acl/update
 }
 
-step5_create_session_app_token () {
-
-  APPSESSION=$(curl -s \
-    --request PUT \
-    --cacert "/usr/local/bootstrap/certificate-config/consul-ca.pem" \
-    --key "/usr/local/bootstrap/certificate-config/client-key.pem" \
-    --cert "/usr/local/bootstrap/certificate-config/client.pem" \
-    --header "X-Consul-Token: ${MASTERACL}" \
-    --data \
-    "{
-      \"LockDelay\": \"15s\",
-      \"Name\": \"${1}-lock\",
-      \"Node\": \"${2}\",
-      \"Checks\": [\"serfHealth\"],
-      \"Behavior\": \"release\",
-      \"TTL\": \"30s\"
-    }" https://127.0.0.1:8321/v1/session/create | jq -r .ID)
-
-  echo "The SESSION token for ${1} is => ${APPSESSION}"
-  echo -n ${APPSESSION} > /usr/local/bootstrap/.${1}-lock
-  sudo chmod ugo+r /usr/local/bootstrap/.${1}-lock
-
-}
-
-step6_create_kv_app_token () {
+step5_create_kv_app_token () {
 
   APPTOKEN=$(curl -s \
     --request PUT \
@@ -156,7 +132,7 @@ step6_create_kv_app_token () {
     "{
       \"Name\": \"${1}\",
       \"Type\": \"client\",
-      \"Rules\": \"key \\\"dev/app1/\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+      \"Rules\": \"key \\\"dev/app1\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
     }" https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
 
   echo "The ACL token for ${1} is => ${APPTOKEN}"
@@ -199,14 +175,12 @@ consul_acl_config () {
     step1_enable_acls_on_agent
     step3_add_agent_acl
     # for terraform provider
-    step5_create_session_app_token "devapp1" ${HOSTNAME}
-    step6_create_kv_app_token "terraform" "dev/app1/"
+    step5_create_kv_app_token "terraform" "dev/app1/"
     
   fi
   
   if [ "${TRAVIS}" == "true" ]; then
-    step5_create_session_app_token "devapp1" ${HOSTNAME}
-    step6_create_kv_app_token "terraform" "dev/app1/"
+    step5_create_kv_app_token "terraform" "dev/app1/"
   fi
   verify_consul_access
   echo consul started
