@@ -55,11 +55,11 @@ If you would like to use the webui then before visiting `https://192.168.2.11:83
 
 - ACL Terraform Backend Token
 ``` bash
-{
+"{
       \"Name\": \"${1}\",
       \"Type\": \"client\",
-      \"Rules\": \"key \\\"dev/app1\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
-    }
+      \"Rules\": \"key \\\"dev/app1\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+    }"
 ```
 
 ## Build details..
@@ -201,7 +201,7 @@ step5_create_kv_app_token () {
     "{
       \"Name\": \"${1}\",
       \"Type\": \"client\",
-      \"Rules\": \"key \\\"dev/app1\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } service \\\"\\\" { policy = \\\"write\\\" } query \\\"\\\" { policy = \\\"write\\\" } event \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
+      \"Rules\": \"key \\\"dev/app1\\\" { policy = \\\"write\\\" } node \\\"\\\" { policy = \\\"write\\\" } session \\\"\\\" { policy = \\\"write\\\" }\"
     }" https://127.0.0.1:8321/v1/acl/create | jq -r .ID)
 
   echo "The ACL token for ${1} is => ${APPTOKEN}"
